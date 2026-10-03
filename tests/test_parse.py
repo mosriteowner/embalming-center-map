@@ -82,11 +82,13 @@ EXPECTED_COUNTS = {
 def build_html(data=DATA, declared="（33都道府県・事業会社36社・94センター）", drop=None):
     out = ["<html><body><h3>組織案内</h3><table><tr><td>センター</td><td>"
            f"北海道・青森県 {declared}</td></tr></table>",
-           "<h3>エンバーミングセンター案内</h3><ul>" + "".join(f"<li><a href='#x'>{p}</a></li>" for p in PREFECTURES[:5]) + "</ul>"]
+           "<h3>エンバーミングセンター案内</h3><ul>"
+           + "".join(f"<li><a href='#unit-{600+i}'>{p}</a></li>" for i, p in enumerate(PREFECTURES) if p in data)
+           + "</ul>"]
     for pref in PREFECTURES:
         if pref not in data:
             continue
-        out.append(f"<h4>{pref}</h4><table><thead><tr><th>会社名</th><th>施設名</th></tr></thead><tbody>")
+        out.append(f"<h4 id='unit-{600+PREFECTURES.index(pref)}'>{pref}</h4><table><thead><tr><th>会社名</th><th>施設名</th></tr></thead><tbody>")
         for co, hq, facs in data[pref]:
             if drop and (pref, co) == drop:
                 continue
@@ -135,3 +137,57 @@ def test_fails_when_declared_total_missing():
 def test_fails_when_declared_total_differs():
     with pytest.raises(ParseError):
         parse(build_html(declared="（33都道府県・事業会社36社・95センター）"))
+
+
+# ---- リンク・拡大図・PNG ----------------------------------------------------
+GEO = Path(__file__).resolve().parent.parent / "data" / "japan_simplified.geojson"
+SRC = "https://www.embalming.jp/organization/"
+
+
+def test_anchors_extracted():
+    snap = parse(build_html())
+    assert snap.anchors["東京都"] == "#unit-" + str(600 + PREFECTURES.index("東京都"))
+    assert set(snap.anchors) == set(EXPECTED_COUNTS)      # 掲載のない県は目次にない
+
+
+def test_render_has_links_and_regions(tmp_path):
+    from mapgen import render
+    snap = parse(build_html())
+    out = tmp_path / "index.html"
+    render(snap, [{"date": "2026-10-04", "total": 94, "counts": snap.counts,
+                   "facilities": snap.facilities}], "2026-10-04", GEO, out, SRC)
+    h = out.read_text(encoding="utf-8")
+    assert f'href="{SRC}#unit-{600 + PREFECTURES.index("東京都")}"' in h   # 東京都のリンク
+    for name in ("首都圏", "近畿", "九州"):
+        assert name in h
+    # 0件の県(群馬)はリンクにならない
+    assert f'#unit-{600 + PREFECTURES.index("群馬県")}' not in h
+    # <svg> が全国+3地域=4つ
+    assert h.count("<svg ") == 4
+
+
+def test_render_without_anchor_falls_back_to_page_url(tmp_path):
+    from mapgen import render
+    snap = parse(build_html())
+    snap.anchors.clear()
+    out = tmp_path / "index.html"
+    render(snap, [], "2026-10-04", GEO, out, SRC)
+    assert f'href="{SRC}"' in out.read_text(encoding="utf-8")
+
+
+def test_png_svg_has_credits():
+    from mapgen import REGIONS, _load_geo, _png_svg
+    snap = parse(build_html())
+    svg, w = _png_svg(snap, _load_geo(GEO), REGIONS[0], "2026-10-04", SRC, "https://example.org/")
+    assert "地球地図日本" in svg and "国土地理院" in svg and SRC in svg
+    assert "計33センター" in svg      # 首都圏 13+9+6+5
+
+
+def test_png_rasterizes(tmp_path):
+    pytest.importorskip("cairosvg")
+    from mapgen import render_pngs
+    snap = parse(build_html())
+    made = render_pngs(snap, "2026-10-04", GEO, tmp_path / "img", SRC, "https://example.org/")
+    assert set(made) == {"japan", "shutoken", "kinki", "kyushu"}
+    for rel in made.values():
+        assert (tmp_path / rel).stat().st_size > 5000

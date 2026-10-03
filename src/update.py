@@ -14,11 +14,12 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from mapgen import render          # noqa: E402
+from mapgen import render, render_pngs  # noqa: E402
 from parse import ParseError, parse  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE_URL = "https://www.embalming.jp/organization/"
+PAGE_URL = "https://mosriteowner.github.io/embalming-center-map/"
 HISTORY = ROOT / "data" / "history.json"
 GEO = ROOT / "data" / "japan_simplified.geojson"
 OUT = ROOT / "docs" / "index.html"
@@ -64,7 +65,16 @@ def main() -> int:
 
     outp = Path(a.out)
     outp.parent.mkdir(parents=True, exist_ok=True)
-    render(snap, history, today, GEO, outp, SOURCE_URL)
+    # PNG（失敗してもページ更新は続行。日付は「この内容を最初に確認した日」にして、
+    # データが変わらない限りPNGも変わらない＝毎週コミットが増えないようにする）
+    png_files = {}
+    try:
+        png_files = render_pngs(snap, history[-1]["date"], GEO, outp.parent / "img",
+                                SOURCE_URL, PAGE_URL)
+        print(f"[INFO] PNG生成: {', '.join(png_files.values())}")
+    except Exception as e:  # noqa: BLE001
+        print(f"[WARN] PNG生成をスキップしました（フォント/cairo未導入など）: {e}", file=sys.stderr)
+    render(snap, history, today, GEO, outp, SOURCE_URL, png_files)
     (outp.parent / ".nojekyll").write_text("", encoding="utf-8")
     print(f"[INFO] 生成: {outp}")
     return 0

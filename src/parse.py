@@ -38,6 +38,8 @@ class Snapshot:
     # 県名 -> ["会社名｜施設名 所在地", ...]（ページ記載順・重複も保持）
     facilities: dict[str, list[str]] = field(default_factory=dict)
     declared: tuple[int, int, int] | None = None  # (都道府県数, 会社数, センター数)
+    # 県名 -> ページ内リンク（例: "#unit-653"）。「エンバーミングセンター案内」の目次から取得。
+    anchors: dict[str, str] = field(default_factory=dict)
 
     @property
     def counts(self) -> dict[str, int]:
@@ -66,6 +68,12 @@ def parse(html: str) -> Snapshot:
     text = _norm(soup.get_text(" ", strip=True))
     m = DECLARED_RE.search(text)
     snap = Snapshot(declared=tuple(int(x) for x in m.groups()) if m else None)
+
+    for a in soup.find_all("a", href=True):
+        href = a["href"].strip()
+        name = _norm(a.get_text())
+        if href.startswith("#") and len(href) > 1 and name in PREFECTURES:
+            snap.anchors.setdefault(name, href)
 
     for table in soup.find_all("table"):
         head = table.find_previous(["h2", "h3", "h4", "h5"])
