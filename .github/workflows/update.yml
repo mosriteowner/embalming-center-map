@@ -23,6 +23,11 @@ jobs:
           python-version: "3.12"
           cache: pip
 
+      - name: 日本語フォントを導入（PNG出力用）
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-cjk libcairo2
+
       - run: pip install -r requirements.txt pytest
 
       - name: テスト（パーサーの検算ロジック）
