@@ -199,7 +199,7 @@ td.n{{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}}
 <tbody>{''.join(rows)}</tbody></table>
 {ev_html}
 <h2>about</h2>
-<p class="note">本ページはIFSAの公表情報を機械的に集計した非公式の資料で、IFSAおよび各社とは無関係です。
+<p class="note">地図の都道府県境界は、「地球地図日本」（国土地理院）をもとに、<a href="https://github.com/dataofjapan/land">dataofjapan/land</a>で公開されている変換データを簡略化・加工して作成しました。出典：<a href="http://www.gsi.go.jp/kankyochiri/gm_jpn.html">国土地理院ウェブサイト</a>。本ページはIFSAの公表情報を機械的に集計した非公式の資料で、IFSAおよび各社とは無関係です。
 掲載内容はIFSAのページ更新に追従しますが、正確・最新の情報は必ず上記の公式サイトでご確認ください。
 集計値がページ記載の合計と一致しない場合は更新を中止する仕組みにしています。</p>
 </main></body></html>"""
