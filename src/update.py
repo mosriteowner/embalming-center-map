@@ -14,7 +14,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from mapgen import render, render_pngs  # noqa: E402
+from companies import company_stats, count_companies  # noqa: E402
+from mapgen import SHOW_COMPANIES, render, render_pngs  # noqa: E402
 from parse import ParseError, parse  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -50,6 +51,12 @@ def main() -> int:
     except ParseError as e:
         print(f"[ERROR] 検算に失敗したため更新を中止します: {e}", file=sys.stderr)
         return 1
+
+    # 事業者数の突き合わせ（ページ記載の「事業会社○社」）。ずれても更新は止めず、警告のみ。
+    n_co = count_companies(company_stats(snap))
+    if SHOW_COMPANIES and snap.declared and n_co != snap.declared[1]:
+        print(f"[WARN] 事業者数が不一致: 集計={n_co} / ページ記載={snap.declared[1]}"
+              "（会社名の表記ゆれの可能性。事業者別の表は参考値です）", file=sys.stderr)
 
     hp = Path(a.history)
     history = json.loads(hp.read_text(encoding="utf-8")) if hp.exists() else []

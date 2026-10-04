@@ -191,3 +191,20 @@ def test_png_rasterizes(tmp_path):
     assert set(made) == {"japan", "shutoken", "kinki", "kyushu"}
     for rel in made.values():
         assert (tmp_path / rel).stat().st_size > 5000
+
+
+def test_company_section_is_off_by_default_and_can_be_enabled(tmp_path, monkeypatch):
+    import mapgen
+    snap = parse(build_html())
+    hist = [{"date": "2026-10-04", "total": 94, "counts": snap.counts, "facilities": snap.facilities}]
+    off = tmp_path / "off.html"
+    mapgen.render(snap, hist, "2026-10-04", GEO, off, SRC)
+    h = off.read_text(encoding="utf-8")
+    assert "運営事業者別" not in h and "<script>" not in h and 'id="sel"' not in h
+    assert '<table class="pt">' in h and "white-space:nowrap" in h        # 表の折り返し対策
+
+    monkeypatch.setattr(mapgen, "SHOW_COMPANIES", True)
+    on = tmp_path / "on.html"
+    mapgen.render(snap, hist, "2026-10-04", GEO, on, SRC)
+    h2 = on.read_text(encoding="utf-8")
+    assert "運営事業者別" in h2 and "<script>" in h2 and 'id="sel"' in h2

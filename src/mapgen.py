@@ -11,6 +11,7 @@ import json
 import math
 from pathlib import Path
 
+from companies import company_stats
 from parse import PREFECTURES, Snapshot
 
 # 色の区分は経年比較のため固定。(下限, 上限, ラベル, 塗り色, 文字色)
@@ -59,6 +60,9 @@ REGIONS = [
      "core": ["福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県"],
      "bbox": (129.3, 132.1, 30.1, 33.95), "width": 760},
 ]
+
+# 事業者別の表・クリック機能（現在は保留中。Trueにすると再び有効になる）
+SHOW_COMPANIES = False
 
 OKINAWA_SHIFT = (-3.0, 5.8)   # 全国図で沖縄を九州の西の海上に移す(経度, 緯度)
 SCALE = 55.0                  # 全国図: px / 緯度1度
@@ -159,6 +163,7 @@ def _map_inner(snap: Snapshot, geo, proj: Proj, bbox=None, links=None,
                     for ring in rings)
         tip = f"{pref}：{n}センター" + ("（クリックでIFSAの一覧へ）" if links is not None and n else "")
         paths.append(wrap(pref, f'<path d="{d}" fill="{bin_of(n)[3]}" stroke="#666" '
+                                f'data-pref="{e(pref)}" data-f0="{bin_of(n)[3]}" data-ttl="{e(tip)}" '
                                 f'stroke-width="{stroke}" stroke-linejoin="round">'
                                 f'<title>{e(tip)}</title></path>'))
         if n == 0 or pref not in pos_table:
@@ -170,6 +175,7 @@ def _map_inner(snap: Snapshot, geo, proj: Proj, bbox=None, links=None,
         size = label_size if n < 10 else label_size - 2
         labels.append(wrap(pref, f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="middle" '
                                  f'dominant-baseline="central" font-size="{size}" font-weight="700" '
+                                 f'data-pref="{e(pref)}" data-n0="{n}" data-c0="{bin_of(n)[4]}" '
                                  f'fill="{bin_of(n)[4]}" style="cursor:pointer">{n}</text>'))
     extra = ""
     if proj.okinawa_shift:    # 沖縄の枠
@@ -260,6 +266,48 @@ def render_pngs(snap: Snapshot, label_date: str, geo_path: Path, out_dir: Path,
 
 
 # ----------------------------------------------------------------- HTML
+
+JS_TEMPLATE = """(function(){
+var DATA=__DATA__, BINS=__BINS__, DIM="#f1f1f1";
+var els=document.querySelectorAll('svg [data-pref]');
+var sel=document.getElementById('sel'), msg=document.getElementById('selmsg');
+var rows=document.querySelectorAll('tr[data-key]');
+function bin(n){for(var i=0;i<BINS.length;i++){if(n>=BINS[i][0]&&n<=BINS[i][1])return BINS[i];}return BINS[BINS.length-1];}
+function apply(key){
+  var d=key?DATA[key]:null;
+  els.forEach(function(el){
+    var p=el.getAttribute('data-pref'), n=d?(d.prefs[p]||0):0;
+    if(el.tagName.toLowerCase()==='path'){
+      el.setAttribute('fill', d?(n?bin(n)[2]:DIM):el.getAttribute('data-f0'));
+      var t=el.querySelector('title');
+      if(t) t.textContent=d?(p+'\\uff1a'+key+' '+n+'\\u30bb\\u30f3\\u30bf\\u30fc'):el.getAttribute('data-ttl');
+    }else{
+      el.textContent=d?(n?String(n):''):el.getAttribute('data-n0');
+      el.setAttribute('fill', d?(n?bin(n)[3]:'#222'):el.getAttribute('data-c0'));
+    }
+  });
+  rows.forEach(function(r){r.classList.toggle('on', !!d && r.getAttribute('data-key')===key);});
+  if(d){
+    msg.textContent=key+'\\uff1a'+d.total+'\\u30bb\\u30f3\\u30bf\\u30fc\\u30fb'+Object.keys(d.prefs).length+'\\u90fd\\u9053\\u5e9c\\u770c\\u3092\\u8868\\u793a\\u4e2d\\u3002\\u8272\\u3068\\u6570\\u5b57\\u306f\\u3001\\u3053\\u306e\\u4e8b\\u696d\\u8005\\u306e\\u770c\\u3054\\u3068\\u306e\\u30bb\\u30f3\\u30bf\\u30fc\\u6570\\u3067\\u3059\\uff08\\u7070\\u8272\\uff1d\\u63b2\\u8f09\\u306a\\u3057\\uff09\\u3002';
+    sel.hidden=false;
+  }else{ sel.hidden=true; }
+}
+function pick(key,scroll){
+  apply(key);
+  try{history.replaceState(null,'',key?('#c='+encodeURIComponent(key)):location.pathname+location.search);}catch(e){}
+  if(scroll){var w=document.getElementById('mapwrap'); if(w&&w.scrollIntoView) w.scrollIntoView({behavior:'smooth',block:'start'});}
+}
+document.querySelectorAll('button.pick').forEach(function(b){
+  b.addEventListener('click',function(){pick(b.getAttribute('data-key'),true);});
+});
+document.getElementById('clr').addEventListener('click',function(){pick(null,false);});
+if(location.hash.indexOf('#c=')===0){
+  var k=decodeURIComponent(location.hash.slice(3));
+  if(DATA[k]) apply(k);
+}
+})();"""
+
+
 def _diff_events(history: list[dict]) -> list[dict]:
     events = []
     for prev, cur in zip(history, history[1:]):
@@ -326,6 +374,49 @@ def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
         ev_html = "<h2>変更履歴（直近）</h2><ul class='ev'>" + "".join(items) + "</ul>"
     first = history[0]["date"] if history else checked_at
 
+    # ---- 事業者別 ----
+    entries = company_stats(snap)
+    multi = [x for x in entries if x["total"] >= 2]
+    single = [x for x in entries if x["total"] == 1]
+
+    def short(p):
+        return p if p == "北海道" else p[:-1]
+
+    crow, rank, prev = [], 0, None
+    for i, x in enumerate(multi):
+        if x["total"] != prev:
+            rank, prev = i + 1, x["total"]
+        pref_txt = "・".join(f"{e(short(p))}{n}" for p, n in x["prefs"].items())
+        mem = ""
+        if x["is_group"]:
+            mem = ('<div class="mem">内訳：' + "／".join(
+                f'{e(m["name"])} {m["total"]}' for m in x["members"]) + "</div>")
+        crow.append(
+            f'<tr data-key="{e(x["name"])}"><td class="n">{rank}</td>'
+            f'<td><button type="button" class="pick" data-key="{e(x["name"])}">{e(x["name"])}</button>{mem}</td>'
+            f'<td class="n">{x["total"]}</td><td class="n">{len(x["prefs"])}</td><td>{pref_txt}</td></tr>')
+    single_txt = "、".join(f'{e(x["name"])}（{e(short(next(iter(x["prefs"]))))}）' for x in single)
+    comp_html = (
+        '<h2>運営事業者別センター数</h2>'
+        '<p class="note">事業者名を押すと、その事業者のセンターがある県だけが、地図に色付きで表示されます'
+        '（もう一度全体に戻すには「全体表示に戻す」）。IFSAページの会社名の表記だけに基づく集計です。'
+        '「○○グループ」と表記された事業者はグループ単位でまとめて内訳を併記し、同じ会社名はページのどこに出ても'
+        '同一の事業者として数えています。資本関係などの実態は反映していません。</p>'
+        '<table><thead><tr><th>順位</th><th>事業者（グループ）</th><th>センター数</th><th>県数</th>'
+        '<th>県別の内訳（県名の後の数字＝センター数）</th></tr></thead><tbody>' + "".join(crow) + '</tbody></table>'
+        f'<details><summary>1センターのみの事業者（{len(single)}社）</summary>'
+        f'<p class="note">{single_txt}</p></details>')
+    js_data = {x["name"]: {"total": x["total"], "prefs": x["prefs"]} for x in multi}
+    script = (JS_TEMPLATE
+              .replace("__DATA__", json.dumps(js_data, ensure_ascii=False).replace("</", "<\\/"))
+              .replace("__BINS__", json.dumps([[b[0], b[1], b[3], b[4]] for b in BINS])))
+    if not SHOW_COMPANIES:
+        comp_html, script, sel_html = "", "", ""
+    else:
+        script = f"<script>{script}</script>"
+        sel_html = ('<div id="sel" class="sel" hidden><span id="selmsg"></span> '
+                    '<button type="button" id="clr" class="pick">全体表示に戻す</button></div>')
+
     png_nat = (f' 　<a class="dl" href="{e(png_files["japan"])}" download>全国図をPNG画像で保存</a>'
                if "japan" in png_files else "")
     png_hint = ("（画像を開いて右クリック→「画像をコピー」でも貼り付けできます）" if png_files else "")
@@ -352,20 +443,32 @@ figure{{margin:0}} figcaption{{font-size:.9rem;margin-bottom:.2rem}}
 table{{border-collapse:collapse;width:100%;font-size:.9rem}}
 th,td{{border-bottom:1px solid var(--line);padding:.35rem .5rem;text-align:left;vertical-align:top}}
 td.n{{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}}
+.pt thead th:nth-child(-n+2),.pt tbody th,.pt td.n{{white-space:nowrap}}
+@media (max-width:480px){{th,td{{padding:.3rem .35rem}} table{{font-size:.85rem}}}}
 .ev{{font-size:.9rem}} .note{{font-size:.85rem;color:var(--mut)}}
+.pick{{font:inherit;color:var(--link);background:transparent;border:1px solid var(--line);border-radius:6px;padding:.1rem .5rem;cursor:pointer;text-align:left}}
+.pick:hover{{border-color:var(--link)}} tr.on{{background:rgba(255,190,0,.18)}}
+.mem{{font-size:.8rem;color:var(--mut);margin-top:.15rem}}
+.sel{{position:sticky;top:0;z-index:5;background:var(--bg);border:1px solid var(--link);border-radius:6px;padding:.4rem .6rem;margin:.5rem 0;font-size:.9rem}}
+.sel[hidden]{{display:none}}
+details{{margin-top:.6rem}}
 </style></head><body><main>
 <h1>エンバーミングセンター分布マップ</h1>
 <p class="meta">全国 {len(snap.facilities)}都道府県・{snap.total}センター／最終確認日：{e(checked_at)}／記録開始：{e(first)}<br>
 出典：<a href="{e(source_url)}">一般社団法人 日本遺体衛生保全協会（IFSA）公式サイト「IFSA組織案内」</a>（ページ記載の施設数を都道府県別に集計）</p>
 <p class="note">色のついた県（図形または数字）をクリック／タップすると、IFSA公式ページのその県の一覧が開きます（ブラウザの「戻る」で地図に戻れます）。{png_nat}{e(png_hint)}</p>
+<div id="mapwrap">
+{sel_html}
 {nat_svg}
+</div>
 <ul class="legend" aria-label="凡例">{legend}</ul>
 <p class="note">沖縄県は位置を移して枠内に表示しています。掲載のない県（{e('・'.join(zero))}）は0件として灰色で示していますが、
 「IFSAの公表ページに掲載がない」という意味であり、その県でエンバーミングが実施できないことを意味しません。</p>
 <h2>地域拡大図</h2>
 <div class="zooms">{''.join(figs)}</div>
+{comp_html}
 <h2>都道府県別センター数</h2>
-<table><thead><tr><th>都道府県</th><th>センター数</th><th>運営会社（IFSA掲載名）</th></tr></thead>
+<table class="pt"><thead><tr><th>都道府県</th><th>センター数</th><th>運営会社（IFSA掲載名）</th></tr></thead>
 <tbody>{''.join(rows)}</tbody></table>
 {ev_html}
 <h2>about</h2>
@@ -373,5 +476,5 @@ td.n{{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}}
 本ページはIFSAの公表情報を機械的に集計した非公式の資料で、IFSAおよび各社とは無関係です。
 掲載内容はIFSAのページ更新に追従しますが、正確・最新の情報は必ず上記の公式サイトでご確認ください。
 集計値がページ記載の合計と一致しない場合は更新を中止する仕組みにしています。</p>
-</main></body></html>"""
+</main>{script}</body></html>"""
     out_path.write_text(doc, encoding="utf-8")
