@@ -143,8 +143,8 @@ def _map_inner(snap: Snapshot, geo, proj: Proj, bbox=None, links=None,
     def wrap(pref, inner):
         if links is None or counts.get(pref, 0) == 0:
             return inner
-        return (f'<a href="{e(links[pref])}" target="_blank" rel="noopener noreferrer">'
-                f'{inner}</a>')
+        # target="_blank" は付けない（Xなどのアプリ内ブラウザで遷移しないことがあるため）
+        return f'<a href="{e(links[pref])}">{inner}</a>'
 
     paths, labels = [], []
     for pref in PREFECTURES:
@@ -311,8 +311,7 @@ def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
         if n == 0:
             continue
         co = "、".join(e(c) for c in snap.companies(p))
-        rows.append(f'<tr><th scope="row"><a href="{e(links[p])}" target="_blank" '
-                    f'rel="noopener noreferrer">{e(p)}</a></th><td class="n">{n}</td><td>{co}</td></tr>')
+        rows.append(f'<tr><th scope="row"><a href="{e(links[p])}">{e(p)}</a></th><td class="n">{n}</td><td>{co}</td></tr>')
     zero = [p for p in PREFECTURES if counts.get(p, 0) == 0]
 
     ev_html = ""
@@ -358,7 +357,7 @@ td.n{{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}}
 <h1>エンバーミングセンター分布マップ</h1>
 <p class="meta">全国 {len(snap.facilities)}都道府県・{snap.total}センター／最終確認日：{e(checked_at)}／記録開始：{e(first)}<br>
 出典：<a href="{e(source_url)}">一般社団法人 日本遺体衛生保全協会（IFSA）公式サイト「IFSA組織案内」</a>（ページ記載の施設数を都道府県別に集計）</p>
-<p class="note">色のついた県（図形または数字）をクリック／タップすると、IFSA公式ページのその県の一覧が別タブで開きます。{png_nat}{e(png_hint)}</p>
+<p class="note">色のついた県（図形または数字）をクリック／タップすると、IFSA公式ページのその県の一覧が開きます（ブラウザの「戻る」で地図に戻れます）。{png_nat}{e(png_hint)}</p>
 {nat_svg}
 <ul class="legend" aria-label="凡例">{legend}</ul>
 <p class="note">沖縄県は位置を移して枠内に表示しています。掲載のない県（{e('・'.join(zero))}）は0件として灰色で示していますが、
