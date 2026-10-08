@@ -9,6 +9,7 @@ from __future__ import annotations
 import html
 import json
 import math
+import unicodedata
 from pathlib import Path
 
 from companies import company_stats
@@ -301,6 +302,15 @@ document.querySelectorAll('button.pick').forEach(function(b){
   b.addEventListener('click',function(){pick(b.getAttribute('data-key'),true);});
 });
 document.getElementById('clr').addEventListener('click',function(){pick(null,false);});
+var ctb=document.querySelector('#ctab tbody'), sbs=document.querySelectorAll('button.sortbtn');
+function sortRows(mode){
+  var key=mode==='name'?'data-n':'data-t';
+  var arr=[].slice.call(ctb.querySelectorAll('tr[data-key]'));
+  arr.sort(function(a,b){return Number(a.getAttribute(key))-Number(b.getAttribute(key));});
+  arr.forEach(function(r){ctb.appendChild(r);});
+  sbs.forEach(function(b){b.setAttribute('aria-pressed', b.getAttribute('data-mode')===mode?'true':'false');});
+}
+sbs.forEach(function(b){b.addEventListener('click',function(){sortRows(b.getAttribute('data-mode'));});});
 if(location.hash.indexOf('#c=')===0){
   var k=decodeURIComponent(location.hash.slice(3));
   if(DATA[k]) apply(k);
@@ -382,6 +392,14 @@ def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
     def short(p):
         return p if p == "北海道" else p[:-1]
 
+    # 社名順: 「株式会社」等の法人格を除いた社名の文字コード順（読み仮名順ではない）
+    def name_key(x):
+        n = unicodedata.normalize("NFKC", x["name"])   # 全角英字を半角に揃える
+        for w in ("株式会社", "有限会社", "合同会社"):
+            n = n.replace(w, "")
+        return n
+    name_pos = {x["name"]: i for i, x in enumerate(sorted(multi, key=name_key))}
+
     crow, rank, prev = [], 0, None
     for i, x in enumerate(multi):
         if x["total"] != prev:
@@ -392,7 +410,8 @@ def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
             mem = ('<div class="mem">内訳：' + "／".join(
                 f'{e(m["name"])} {m["total"]}' for m in x["members"]) + "</div>")
         crow.append(
-            f'<tr data-key="{e(x["name"])}"><td class="n">{rank}</td>'
+            f'<tr data-key="{e(x["name"])}" data-t="{i}" data-n="{name_pos[x["name"]]}">'
+            f'<td class="n">{rank}</td>'
             f'<td><button type="button" class="pick" data-key="{e(x["name"])}">{e(x["name"])}</button>{mem}</td>'
             f'<td class="n">{x["total"]}</td><td class="n">{len(x["prefs"])}</td><td>{pref_txt}</td></tr>')
     single_txt = "、".join(f'{e(x["name"])}（{e(short(next(iter(x["prefs"]))))}）' for x in single)
@@ -401,8 +420,12 @@ def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
         '<p class="note">事業者名を押すと、その事業者のセンターがある県だけが、地図に色付きで表示されます'
         '（もう一度全体に戻すには「全体表示に戻す」）。IFSAページの会社名の表記だけに基づく集計です。'
         '「○○グループ」と表記された事業者はグループ単位でまとめて内訳を併記し、同じ会社名はページのどこに出ても'
-        '同一の事業者として数えています。資本関係などの実態は反映していません。</p>'
-        '<table><thead><tr><th>順位</th><th>事業者（グループ）</th><th>センター数</th><th>県数</th>'
+        '同一の事業者として数えています。資本関係などの実態は反映していません。'
+        '社名順は、「株式会社」等を除いた社名の文字コード順で、五十音順ではありません。</p>'
+        '<div class="sortbar">並び順：'
+        '<button type="button" class="sortbtn" data-mode="count" aria-pressed="true">センター数順</button>'
+        '<button type="button" class="sortbtn" data-mode="name" aria-pressed="false">社名順</button></div>'
+        '<table id="ctab"><thead><tr><th>順位</th><th>事業者（グループ）</th><th>センター数</th><th>県数</th>'
         '<th>県別の内訳（県名の後の数字＝センター数）</th></tr></thead><tbody>' + "".join(crow) + '</tbody></table>'
         f'<details><summary>1センターのみの事業者（{len(single)}社）</summary>'
         f'<p class="note">{single_txt}</p></details>')
@@ -451,6 +474,10 @@ td.n{{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}}
 .mem{{font-size:.8rem;color:var(--mut);margin-top:.15rem}}
 .sel{{position:sticky;top:0;z-index:5;background:var(--bg);border:1px solid var(--link);border-radius:6px;padding:.4rem .6rem;margin:.5rem 0;font-size:.9rem}}
 .sel[hidden]{{display:none}}
+.sortbar{{margin:.6rem 0;font-size:.9rem}}
+.sortbtn{{font:inherit;background:transparent;color:var(--fg);border:1px solid var(--line);padding:.15rem .7rem;margin-left:.4rem;cursor:pointer}}
+.sortbtn:first-of-type{{border-radius:6px 0 0 6px;margin-left:.4rem}} .sortbtn+.sortbtn{{border-radius:0 6px 6px 0;margin-left:-1px}}
+.sortbtn[aria-pressed="true"]{{background:var(--link);color:var(--bg);border-color:var(--link)}}
 details{{margin-top:.6rem}}
 </style></head><body><main>
 <h1>エンバーミングセンター分布マップ</h1>
