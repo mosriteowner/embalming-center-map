@@ -193,11 +193,12 @@ def test_png_rasterizes(tmp_path):
         assert (tmp_path / rel).stat().st_size > 5000
 
 
-def test_company_section_is_off_by_default_and_can_be_enabled(tmp_path, monkeypatch):
+def test_company_section_can_be_switched_off_and_on(tmp_path, monkeypatch):
     import mapgen
     snap = parse(build_html())
     hist = [{"date": "2026-10-04", "total": 94, "counts": snap.counts, "facilities": snap.facilities}]
     off = tmp_path / "off.html"
+    monkeypatch.setattr(mapgen, "SHOW_COMPANIES", False)     # 設定値に左右されないよう明示する
     mapgen.render(snap, hist, "2026-10-04", GEO, off, SRC)
     h = off.read_text(encoding="utf-8")
     assert "運営事業者別" not in h and "<script>" not in h and 'id="sel"' not in h
