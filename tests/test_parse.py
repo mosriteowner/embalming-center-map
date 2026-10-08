@@ -208,3 +208,14 @@ def test_company_section_is_off_by_default_and_can_be_enabled(tmp_path, monkeypa
     mapgen.render(snap, hist, "2026-10-04", GEO, on, SRC)
     h2 = on.read_text(encoding="utf-8")
     assert "運営事業者別" in h2 and "<script>" in h2 and 'id="sel"' in h2
+
+
+def test_company_table_has_sort_toggle(tmp_path, monkeypatch):
+    import mapgen
+    snap = parse(build_html())
+    out = tmp_path / "x.html"
+    monkeypatch.setattr(mapgen, "SHOW_COMPANIES", True)
+    mapgen.render(snap, [], "2026-10-08", GEO, out, SRC)
+    h = out.read_text(encoding="utf-8")
+    assert 'data-mode="name"' in h and 'data-mode="count"' in h and 'id="ctab"' in h
+    assert 'data-t="0"' in h and 'data-n="0"' in h
