@@ -63,7 +63,7 @@ REGIONS = [
 ]
 
 # 事業者別の表・クリック機能（現在は保留中。Trueにすると再び有効になる）
-SHOW_COMPANIES = True
+SHOW_COMPANIES = False
 
 OKINAWA_SHIFT = (-3.0, 5.8)   # 全国図で沖縄を九州の西の海上に移す(経度, 緯度)
 SCALE = 55.0                  # 全国図: px / 緯度1度
