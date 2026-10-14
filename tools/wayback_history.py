@@ -3,6 +3,7 @@
 使い方（GitHub Actions の wayback.yml が実行します。手元でも動きます）:
     python tools/wayback_history.py            # 取得して data/wayback_history.json を作る
     python tools/wayback_history.py --limit 5  # 試しに先頭5件だけ
+    python tools/wayback_history.py --yearly   # 年に1件（その年の最後の保存）だけ
 
 方針:
   * Internet Archive 公式の CDX API で、保存履歴を「内容が変わった回だけ」に絞って取得する。
@@ -126,13 +127,24 @@ def fetch_one(session, snap: dict) -> dict:
     return rec
 
 
-def run(session, out: Path = OUT, limit: int | None = None, sleep: float = SLEEP) -> list[dict]:
+def yearly_last(snaps: list[dict]) -> list[dict]:
+    """各年の「最後の保存」だけを残す（＝その年末時点のページの状態）。"""
+    last: dict[str, dict] = {}
+    for s in sorted(snaps, key=lambda x: x["timestamp"]):
+        last[s["timestamp"][:4]] = s
+    return [last[y] for y in sorted(last)]
+
+
+def run(session, out: Path = OUT, limit: int | None = None, sleep: float = SLEEP,
+        yearly: bool = False) -> list[dict]:
     cache: dict[str, dict] = {}
     if out.exists():
         for r in json.loads(out.read_text(encoding="utf-8")).get("snapshots", []):
             if r.get("status") in ("ok", "unverified"):
                 cache[r["timestamp"]] = r
     snaps = list_snapshots(session)
+    if yearly:
+        snaps = yearly_last(snaps)
     if limit:
         snaps = snaps[:limit]
     result = []
@@ -175,9 +187,11 @@ def summary_markdown(result: list[dict]) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
+    ap.add_argument("--yearly", action="store_true",
+                    help="年に1件（その年の最後の保存＝年末時点）だけを取得する")
     ap.add_argument("--limit", type=int, default=None, help="先頭から何件だけ処理するか（試験用）")
     args = ap.parse_args()
-    result = run(make_session(), limit=args.limit)
+    result = run(make_session(), limit=args.limit, yearly=args.yearly)
     md = summary_markdown(result)
     print(md)
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
