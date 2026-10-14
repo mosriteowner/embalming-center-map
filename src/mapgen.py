@@ -14,6 +14,7 @@ from pathlib import Path
 
 from companies import company_stats
 from parse import PREFECTURES, Snapshot
+from trend import build_series, section_html
 
 # 色の区分は経年比較のため固定。(下限, 上限, ラベル, 塗り色, 文字色)
 BINS = [
@@ -337,8 +338,11 @@ def _diff_events(history: list[dict]) -> list[dict]:
 
 
 def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
-           out_path: Path, source_url: str, png_files: dict[str, str] | None = None) -> None:
+           out_path: Path, source_url: str, png_files: dict[str, str] | None = None,
+           wayback: list[dict] | None = None) -> None:
     png_files = png_files or {}
+    series = build_series(wayback or [], history)
+    trend_html = section_html(series) if wayback else ""
     counts = snap.counts
     e = html.escape
     geo = _load_geo(geo_path)
@@ -468,6 +472,9 @@ th,td{{border-bottom:1px solid var(--line);padding:.35rem .5rem;text-align:left;
 td.n{{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}}
 .pt thead th:nth-child(-n+2),.pt tbody th,.pt td.n{{white-space:nowrap}}
 @media (max-width:480px){{th,td{{padding:.3rem .35rem}} table{{font-size:.85rem}}}}
+.sub{{font-size:1rem;margin:1.2rem 0 .3rem}}
+svg.trend{{max-height:none;min-width:620px}}
+.tscroll{{overflow-x:auto}} .nw{{min-width:640px}} .nw th,.nw td{{white-space:nowrap}}
 .ev{{font-size:.9rem}} .note{{font-size:.85rem;color:var(--mut)}}
 .pick{{font:inherit;color:var(--link);background:transparent;border:1px solid var(--line);border-radius:6px;padding:.1rem .5rem;cursor:pointer;text-align:left}}
 .pick:hover{{border-color:var(--link)}} tr.on{{background:rgba(255,190,0,.18)}}
@@ -494,6 +501,7 @@ details{{margin-top:.6rem}}
 <h2>地域拡大図</h2>
 <div class="zooms">{''.join(figs)}</div>
 {comp_html}
+{trend_html}
 <h2>都道府県別センター数</h2>
 <table class="pt"><thead><tr><th>都道府県</th><th>センター数</th><th>運営会社（IFSA掲載名）</th></tr></thead>
 <tbody>{''.join(rows)}</tbody></table>
@@ -501,6 +509,7 @@ details{{margin-top:.6rem}}
 <h2>about</h2>
 <p class="note">地図の都道府県境界は、「地球地図日本」（国土地理院）をもとに、<a href="https://github.com/dataofjapan/land">dataofjapan/land</a>で公開されている変換データを簡略化・加工して作成しました。出典：<a href="http://www.gsi.go.jp/kankyochiri/gm_jpn.html">国土地理院ウェブサイト</a>。
 本ページはIFSAの公表情報を機械的に集計した非公式の資料で、IFSAおよび各社とは無関係です。
+センター数の推移は、<a href="https://web.archive.org/">Internet Archive</a>のWayback Machineに保存されたIFSAのページ、および毎週の自動確認の記録に基づきます。
 掲載内容はIFSAのページ更新に追従しますが、正確・最新の情報は必ず上記の公式サイトでご確認ください。
 集計値がページ記載の合計と一致しない場合は更新を中止する仕組みにしています。</p>
 </main>{script}</body></html>"""
