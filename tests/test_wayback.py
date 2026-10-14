@@ -61,3 +61,10 @@ def test_summary_markdown():
         {"timestamp": "20200101000000", "status": "unreadable", "note": "x|y"},
     ])
     assert "2026-10-03" in md and "検算一致 1 件" in md and "読めず 1 件" in md and "x/y" in md
+
+
+def test_yearly_keeps_last_snapshot_of_each_year():
+    snaps = [{"timestamp": t} for t in ("20200105000000", "20200901000000", "20210301000000",
+                                        "20211201000000", "20211231000000", "20260101000000")]
+    got = [s["timestamp"] for s in wb.yearly_last(snaps)]
+    assert got == ["20200901000000", "20211231000000", "20260101000000"]
