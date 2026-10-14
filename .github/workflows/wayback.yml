@@ -5,6 +5,10 @@ name: wayback-history
 on:
   workflow_dispatch:
     inputs:
+      yearly:
+        description: "年に1件（その年の最後の保存＝年末時点）だけ取得する"
+        type: boolean
+        default: true
       limit:
         description: "試験用: 先頭から何件だけ処理するか（空欄なら全件）"
         required: false
@@ -37,12 +41,12 @@ jobs:
       - name: Wayback Machine から推移を取得
         env:
           LIMIT: ${{ inputs.limit }}
+          YEARLY: ${{ inputs.yearly }}
         run: |
-          if [ -n "$LIMIT" ]; then
-            python tools/wayback_history.py --limit "$LIMIT"
-          else
-            python tools/wayback_history.py
-          fi
+          ARGS=""
+          if [ "$YEARLY" = "true" ]; then ARGS="$ARGS --yearly"; fi
+          if [ -n "$LIMIT" ]; then ARGS="$ARGS --limit $LIMIT"; fi
+          python tools/wayback_history.py $ARGS
 
       - name: 結果を保存（JSON）
         run: |
