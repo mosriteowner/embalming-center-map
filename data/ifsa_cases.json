@@ -1,0 +1,35 @@
+{
+ "source_url": "https://www.embalming.jp/embalming/medic/",
+ "source_title": "IFSA「医療従事者の立場から」内「エンバーミング処置年間推移件数グラフ」および本文の表（葬祭関係者への普及経緯）",
+ "retrieved": "2026-10-14",
+ "note": "annual のうち from=graph は、グラフ画像の数値ラベルを転記したもの（2年おき＋2025年）。from=text は同ページ本文の表の値。IFSAが更新したときは、手でこのファイルを書き換える。",
+ "annual": [
+  {"year": 1988, "cases": 191, "from": "graph"},
+  {"year": 1990, "cases": 656, "from": "graph"},
+  {"year": 1992, "cases": 1423, "from": "graph"},
+  {"year": 1994, "cases": 5052, "from": "graph"},
+  {"year": 1996, "cases": 8614, "from": "graph"},
+  {"year": 1998, "cases": 8665, "from": "graph"},
+  {"year": 2000, "cases": 10187, "from": "graph"},
+  {"year": 2002, "cases": 12204, "from": "graph"},
+  {"year": 2004, "cases": 14078, "from": "graph"},
+  {"year": 2006, "cases": 15554, "from": "graph"},
+  {"year": 2008, "cases": 17932, "from": "graph"},
+  {"year": 2010, "cases": 21310, "from": "graph"},
+  {"year": 2012, "cases": 26187, "from": "graph"},
+  {"year": 2014, "cases": 31316, "from": "graph"},
+  {"year": 2016, "cases": 37593, "from": "graph"},
+  {"year": 2017, "cases": 42760, "from": "text"},
+  {"year": 2018, "cases": 48466, "from": "graph"},
+  {"year": 2020, "cases": 53041, "from": "graph"},
+  {"year": 2022, "cases": 70597, "from": "graph"},
+  {"year": 2024, "cases": 82068, "from": "graph"},
+  {"year": 2025, "cases": 88531, "from": "graph"}
+ ],
+ "text_table": [
+  {"year": 1988, "prefectures": null, "centers": null, "cases": 191, "cumulative": null},
+  {"year": 2017, "prefectures": 24, "centers": 61, "cases": 42760, "cumulative": 446034},
+  {"year": 2024, "prefectures": 32, "centers": 90, "cases": 82068, "cumulative": 886542},
+  {"year": 2025, "prefectures": 33, "centers": 92, "cases": 88531, "cumulative": 975073}
+ ]
+}
