@@ -162,8 +162,8 @@ def test_render_has_links_and_regions(tmp_path):
         assert name in h
     # 0件の県(群馬)はリンクにならない
     assert f'#unit-{600 + PREFECTURES.index("群馬県")}' not in h
-    # <svg> が全国+3地域=4つ
-    assert h.count("<svg ") == 4
+    # 地図の<svg>が全国+3地域=4つ（タブのアイコンは aria-hidden なので数えない）
+    assert h.count('<svg viewBox') == 4 and h.count('role="img"') == 4
 
 
 def test_render_without_anchor_falls_back_to_page_url(tmp_path):
