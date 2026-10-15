@@ -14,7 +14,7 @@ from pathlib import Path
 
 from companies import company_stats
 from parse import PREFECTURES, Snapshot
-from trend import build_series, section_html
+from trend import build_series, cases_section_html, section_html
 
 # 色の区分は経年比較のため固定。(下限, 上限, ラベル, 塗り色, 文字色)
 BINS = [
@@ -339,10 +339,12 @@ def _diff_events(history: list[dict]) -> list[dict]:
 
 def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
            out_path: Path, source_url: str, png_files: dict[str, str] | None = None,
-           wayback: list[dict] | None = None) -> None:
+           wayback: list[dict] | None = None, cases: dict | None = None) -> None:
     png_files = png_files or {}
     series = build_series(wayback or [], history)
     trend_html = section_html(series) if wayback else ""
+    if wayback:
+        trend_html += cases_section_html(series, cases)
     counts = snap.counts
     e = html.escape
     geo = _load_geo(geo_path)
@@ -444,6 +446,8 @@ def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
         sel_html = ('<div id="sel" class="sel" hidden><span id="selmsg"></span> '
                     '<button type="button" id="clr" class="pick">全体表示に戻す</button></div>')
 
+    scroll_js = ("<script>document.querySelectorAll('.tscroll.chart').forEach(function(e){e.scrollLeft=e.scrollWidth;});</script>"
+                 if trend_html else "")
     png_nat = (f' 　<a class="dl" href="{e(png_files["japan"])}" download>全国図をPNG画像で保存</a>'
                if "japan" in png_files else "")
     png_hint = ("（画像を開いて右クリック→「画像をコピー」でも貼り付けできます）" if png_files else "")
@@ -473,7 +477,7 @@ td.n{{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}}
 .pt thead th:nth-child(-n+2),.pt tbody th,.pt td.n{{white-space:nowrap}}
 @media (max-width:480px){{th,td{{padding:.3rem .35rem}} table{{font-size:.85rem}}}}
 .sub{{font-size:1rem;margin:1.2rem 0 .3rem}}
-svg.trend{{max-height:none;min-width:620px}}
+svg.trend{{max-height:none;min-width:560px}}
 .tscroll{{overflow-x:auto}} .nw{{min-width:640px}} .nw th,.nw td{{white-space:nowrap}}
 .ev{{font-size:.9rem}} .note{{font-size:.85rem;color:var(--mut)}}
 .pick{{font:inherit;color:var(--link);background:transparent;border:1px solid var(--line);border-radius:6px;padding:.1rem .5rem;cursor:pointer;text-align:left}}
@@ -512,5 +516,5 @@ details{{margin-top:.6rem}}
 センター数の推移は、<a href="https://web.archive.org/">Internet Archive</a>のWayback Machineに保存されたIFSAのページ、および毎週の自動確認の記録に基づきます。
 掲載内容はIFSAのページ更新に追従しますが、正確・最新の情報は必ず上記の公式サイトでご確認ください。
 集計値がページ記載の合計と一致しない場合は更新を中止する仕組みにしています。</p>
-</main>{script}</body></html>"""
+</main>{script}{scroll_js}</body></html>"""
     out_path.write_text(doc, encoding="utf-8")

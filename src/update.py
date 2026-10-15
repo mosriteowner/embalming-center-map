@@ -17,13 +17,14 @@ sys.path.insert(0, str(Path(__file__).parent))
 from companies import company_stats, count_companies  # noqa: E402
 from mapgen import SHOW_COMPANIES, render, render_pngs  # noqa: E402
 from parse import ParseError, parse  # noqa: E402
-from trend import load_wayback  # noqa: E402
+from trend import load_cases, load_wayback  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE_URL = "https://www.embalming.jp/organization/"
 PAGE_URL = "https://mosriteowner.github.io/embalming-center-map/"
 HISTORY = ROOT / "data" / "history.json"
 WAYBACK = ROOT / "data" / "wayback_history.json"
+CASES = ROOT / "data" / "ifsa_cases.json"
 GEO = ROOT / "data" / "japan_simplified.geojson"
 OUT = ROOT / "docs" / "index.html"
 UA = "embalming-center-map/1.0 (+https://github.com/mosriteowner/embalming-center-map; weekly fetch)"
@@ -84,7 +85,7 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         print(f"[WARN] PNG生成をスキップしました（フォント/cairo未導入など）: {e}", file=sys.stderr)
     render(snap, history, today, GEO, outp, SOURCE_URL, png_files,
-           wayback=load_wayback(WAYBACK))
+           wayback=load_wayback(WAYBACK), cases=load_cases(CASES))
     (outp.parent / ".nojekyll").write_text("", encoding="utf-8")
     print(f"[INFO] 生成: {outp}")
     return 0
