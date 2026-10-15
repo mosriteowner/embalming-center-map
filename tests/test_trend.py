@@ -65,3 +65,43 @@ def test_render_includes_or_omits_section(tmp_path):
     assert 'id="trend"' in out.read_text(encoding="utf-8")
     render(snap, hist, "2026-10-14", GEO, out, "https://x/", {})
     assert 'id="trend"' not in out.read_text(encoding="utf-8")
+
+
+CASES = {
+    "source_url": "https://www.embalming.jp/embalming/medic/", "retrieved": "2026-10-14",
+    "annual": [{"year": 1988, "cases": 191, "from": "graph"}, {"year": 2017, "cases": 42760, "from": "text"},
+               {"year": 2025, "cases": 88531, "from": "graph"}],
+    "text_table": [{"year": 1988, "prefectures": None, "centers": None, "cases": 191, "cumulative": None},
+                   {"year": 2017, "prefectures": 24, "centers": 61, "cases": 42760, "cumulative": 446034},
+                   {"year": 2026, "prefectures": 33, "centers": 94, "cases": 1, "cumulative": 2}],
+}
+
+
+def test_cases_section_chart_and_table():
+    series = trend.build_series(WAYBACK[:5], [])
+    h = trend.cases_section_html(series, CASES)
+    assert 'id="cases"' in h and h.count('class="bar') == 3 and "88,531" in h
+    assert "24都道府県61センター" in h and "446,034" in h
+    assert trend.cases_section_html(series, None) == "" and trend.cases_section_html(series, {}) == ""
+
+
+def test_cases_table_range_from_same_year_snapshots():
+    s = trend.build_series([wb("20240301000000", 85, 31), wb("20240620000000", 90, 32),
+                            wb("20240713000000", 91, 32)], [])
+    cases = {**CASES, "text_table": [{"year": 2024, "prefectures": 32, "centers": 90, "cases": 82068,
+                                      "cumulative": 886542}]}
+    h = trend.cases_section_html(s, cases)
+    assert "31〜32都道府県85〜91センター" in h
+    cases["text_table"][0]["year"] = 2030
+    assert "保存なし" in trend.cases_section_html(s, cases)
+
+
+def test_render_includes_cases(tmp_path):
+    snap = parse(build_html())
+    hist = [{"date": "2026-10-04", "total": 94, "counts": snap.counts, "facilities": snap.facilities}]
+    out = tmp_path / "i.html"
+    render(snap, hist, "2026-10-14", GEO, out, "https://x/", {}, wayback=WAYBACK[:5], cases=CASES)
+    t = out.read_text(encoding="utf-8")
+    assert 'id="trend"' in t and 'id="cases"' in t
+    render(snap, hist, "2026-10-14", GEO, out, "https://x/", {}, wayback=WAYBACK[:5])
+    assert 'id="cases"' not in out.read_text(encoding="utf-8")
