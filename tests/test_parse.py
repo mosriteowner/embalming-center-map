@@ -201,14 +201,14 @@ def test_company_section_can_be_switched_off_and_on(tmp_path, monkeypatch):
     monkeypatch.setattr(mapgen, "SHOW_COMPANIES", False)     # 設定値に左右されないよう明示する
     mapgen.render(snap, hist, "2026-10-04", GEO, off, SRC)
     h = off.read_text(encoding="utf-8")
-    assert "運営事業者別" not in h and "<script>" not in h and 'id="sel"' not in h
+    assert "運営事業者別" not in h and 'id="ctab"' not in h and 'id="sel"' not in h
     assert '<table class="pt">' in h and "white-space:nowrap" in h        # 表の折り返し対策
 
     monkeypatch.setattr(mapgen, "SHOW_COMPANIES", True)
     on = tmp_path / "on.html"
     mapgen.render(snap, hist, "2026-10-04", GEO, on, SRC)
     h2 = on.read_text(encoding="utf-8")
-    assert "運営事業者別" in h2 and "<script>" in h2 and 'id="sel"' in h2
+    assert "運営事業者別" in h2 and 'id="ctab"' in h2 and 'id="sel"' in h2
 
 
 def test_company_table_has_sort_toggle(tmp_path, monkeypatch):

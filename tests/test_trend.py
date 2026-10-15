@@ -105,3 +105,22 @@ def test_render_includes_cases(tmp_path):
     assert 'id="trend"' in t and 'id="cases"' in t
     render(snap, hist, "2026-10-14", GEO, out, "https://x/", {}, wayback=WAYBACK[:5])
     assert 'id="cases"' not in out.read_text(encoding="utf-8")
+
+
+def test_tabs_structure(tmp_path):
+    import re
+    snap = parse(build_html())
+    hist = [{"date": "2026-10-04", "total": 94, "counts": snap.counts, "facilities": snap.facilities}]
+    out = tmp_path / "t.html"
+    render(snap, hist, "2026-10-14", GEO, out, "https://x/", {}, wayback=WAYBACK[:5], cases=CASES)
+    h = out.read_text(encoding="utf-8")
+    keys = re.findall(r'role="tab" id="t-(\w+)"', h)
+    assert keys == ["map", "pref", "trend", "cases", "about"]
+    for k in keys:      # すべてのタブに対応するパネルがある
+        assert f'id="p-{k}" data-key="{k}" role="tabpanel"' in h
+    assert h.count('class="tabpanel on"') == 1 and 'id="p-map"' in h
+    assert 'document.documentElement.className="js"' in h     # JSなしなら全パネル表示のまま
+    # 推移・件数が無いときは、そのタブも出さない
+    render(snap, hist, "2026-10-14", GEO, out, "https://x/", {})
+    keys2 = re.findall(r'role="tab" id="t-(\w+)"', out.read_text(encoding="utf-8"))
+    assert keys2 == ["map", "pref", "about"]
