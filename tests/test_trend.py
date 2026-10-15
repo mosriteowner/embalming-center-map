@@ -53,8 +53,24 @@ def test_section_has_chart_table_and_caveats():
     h = trend.section_html(trend.build_series(WAYBACK[:5], []))
     assert h.count("<circle") == 5 and "<svg" in h
     assert "最古の保存" in h and "2016-02-03 〜 2023-11-28" in h and "+34" in h
-    assert "照合できたのは、Wayback由来の5件のうち1件" in h
     assert "分かりません" in h and "Wayback Machineの保存5件" in h
+    assert "照合" not in h and "mk open" not in h.replace(".mk.open", "")     # 既定では照合の表示は出さない
+    assert "ページ記載との照合" not in h                                       # 表に照合の列はない
+
+
+def test_verification_display_can_be_switched_on(monkeypatch):
+    monkeypatch.setattr(trend, "SHOW_VERIFICATION", True)
+    s = trend.build_series(WAYBACK[:5], [])
+    h = trend.section_html(s)
+    assert "照合できたのは、Wayback由来の5件のうち1件" in h and 'class="mk open"' in h
+    assert h.count('class="mk"') == 1                    # 一致した最後の1点だけ塗りつぶし
+    c = trend.cases_section_html(s, CASES)
+    assert "●○■と破線は前の節と同じ意味です" in c
+
+
+def test_verification_is_still_recorded_in_data():
+    s = trend.build_series(WAYBACK[:5], [])
+    assert [p["ok"] for p in s] == [False, False, False, False, True]     # 表示しなくても区別は保持している
 
 
 def test_render_includes_or_omits_section(tmp_path):
@@ -81,6 +97,7 @@ def test_cases_section_chart_and_table():
     series = trend.build_series(WAYBACK[:5], [])
     h = trend.cases_section_html(series, CASES)
     assert 'id="cases"' in h and h.count('class="bar') == 3 and "88,531" in h
+    assert "●○■" not in h and "■と破線は前の節と同じ意味です" in h
     assert "24都道府県61センター" in h and "446,034" in h
     assert trend.cases_section_html(series, None) == "" and trend.cases_section_html(series, {}) == ""
 
