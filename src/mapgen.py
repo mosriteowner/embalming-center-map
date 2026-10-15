@@ -14,6 +14,7 @@ from pathlib import Path
 
 from companies import company_stats
 from parse import PREFECTURES, Snapshot
+from embalmers import section_html as emb_section_html
 from trend import build_series, cases_section_html, section_html
 
 # 色の区分は経年比較のため固定。(下限, 上限, ラベル, 塗り色, 文字色)
@@ -325,6 +326,7 @@ TAB_ICONS = {
     "pref": '<path d="M8 6h13M8 12h13M8 18h13"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/>',
     "trend": '<path d="M3 3v18h18"/><path d="M7 16l4-5 3 3 6-7"/>',
     "cases": '<path d="M6 20v-6M12 20V6M18 20v-9" stroke-width="3"/>',
+    "emb": '<circle cx="12" cy="7" r="3.5"/><path d="M5 21v-3a7 7 0 0 1 14 0v3"/>',
     "about": '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/>',
 }
 
@@ -380,11 +382,13 @@ def _diff_events(history: list[dict]) -> list[dict]:
 
 def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
            out_path: Path, source_url: str, png_files: dict[str, str] | None = None,
-           wayback: list[dict] | None = None, cases: dict | None = None) -> None:
+           wayback: list[dict] | None = None, cases: dict | None = None,
+           embalmers: dict | None = None) -> None:
     png_files = png_files or {}
     series = build_series(wayback or [], history)
     trend_html = section_html(series) if wayback else ""
     cases_html = cases_section_html(series, cases) if wayback else ""
+    emb_html = emb_section_html(embalmers)
     counts = snap.counts
     e = html.escape
     geo = _load_geo(geo_path)
@@ -491,6 +495,8 @@ def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
         tab_defs.append(("trend", "推移"))
     if cases_html:
         tab_defs.append(("cases", "実施件数"))
+    if emb_html:
+        tab_defs.append(("emb", "技術者数"))
     tab_defs.append(("about", "出典など"))
     tabs_nav = ('<div class="tabs" role="tablist" aria-label="表示の切り替え">' + "".join(
         f'<button type="button" role="tab" id="t-{k}" data-key="{k}" aria-controls="p-{k}" '
@@ -547,6 +553,8 @@ h1{{font-size:1.35rem;margin:.2rem 0}} h2{{font-size:1.1rem;margin-top:2rem}}
 .meta{{color:var(--mut);font-size:.85rem}}
 svg{{width:100%;height:auto;max-height:80vh}}
 svg a{{cursor:pointer}} svg a:hover path{{stroke:#000;stroke-width:1.8}}
+.sm{{font-size:.78rem;color:var(--mut)}}
+.legend li{{display:flex;align-items:center;gap:.35rem}} svg.lg{{min-width:0;width:16px;height:16px;flex:none}}
 .legend{{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem 1rem;padding:0;font-size:.85rem}}
 .sw{{display:inline-block;width:1em;height:1em;border:1px solid #666;margin-right:.3em;vertical-align:-.15em}}
 .zooms{{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1rem}}
@@ -584,7 +592,7 @@ details{{margin-top:.6rem}}
 .js .tabpanel{{display:none}} .js .tabpanel.on{{display:block}}
 .js .sel{{top:5.2rem}}
 .tabpanel>h2:first-child{{margin-top:.6rem}} h2{{scroll-margin-top:5.4rem}}
-@media (max-width:560px){{.tabs button{{flex-direction:column;gap:.15rem;font-size:.78rem;padding:.45rem .1rem}} .ti{{width:1.5em;height:1.5em}}}}
+@media (max-width:560px){{.tabs button{{flex-direction:column;gap:.15rem;font-size:.7rem;padding:.45rem 0}} .ti{{width:1.5em;height:1.5em}}}}
 @media print{{.tabs{{display:none!important}} .js .tabpanel{{display:block!important}}}}
 </style></head><body><main>
 <h1>エンバーミングセンター分布マップ</h1>
@@ -595,6 +603,7 @@ details{{margin-top:.6rem}}
 {panel("pref", pref_inner)}
 {panel("trend", trend_html)}
 {panel("cases", cases_html)}
+{panel("emb", emb_html)}
 {panel("about", about_inner)}
 </main>{script}<script>{TABS_JS}</script></body></html>"""
     out_path.write_text(doc, encoding="utf-8")
