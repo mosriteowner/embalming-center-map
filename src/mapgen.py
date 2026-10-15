@@ -319,6 +319,38 @@ if(location.hash.indexOf('#c=')===0){
 })();"""
 
 
+TABS_JS = """(function(){
+var tabs=[].slice.call(document.querySelectorAll('[role=tab]')), panels=[].slice.call(document.querySelectorAll('.tabpanel'));
+function kOf(el){return el.getAttribute('data-key');}
+function fixScroll(p){[].forEach.call(p.querySelectorAll('.tscroll.chart'),function(e){
+  if(!e.getAttribute('data-s')){e.scrollLeft=e.scrollWidth;e.setAttribute('data-s','1');}});}
+function show(key,push){
+  if(!tabs.some(function(t){return kOf(t)===key;})) key='map';
+  tabs.forEach(function(t){var on=kOf(t)===key;t.setAttribute('aria-selected',on?'true':'false');t.tabIndex=on?0:-1;});
+  panels.forEach(function(p){var on=kOf(p)===key;p.classList.toggle('on',on);if(on)fixScroll(p);});
+  if(push){try{history.replaceState(null,'','#'+key);}catch(e){}}
+}
+function fromHash(){
+  var h=''; try{h=decodeURIComponent(location.hash.replace(/^#/,''));}catch(e){}
+  if(!h||h.indexOf('c=')===0){show('map',false);return;}
+  var key=null; tabs.forEach(function(t){if(kOf(t)===h)key=h;});
+  var el=document.getElementById(h);
+  if(!key&&el){var p=el.closest('.tabpanel'); if(p)key=kOf(p);}
+  show(key||'map',false);
+  if(!key&&el&&el.scrollIntoView) el.scrollIntoView();
+}
+tabs.forEach(function(t,i){
+  t.addEventListener('click',function(){show(kOf(t),true);});
+  t.addEventListener('keydown',function(ev){
+    var j=ev.key==='ArrowRight'?i+1:ev.key==='ArrowLeft'?i-1:-1;
+    if(j<0||j>=tabs.length) return;
+    ev.preventDefault(); tabs[j].focus(); show(kOf(tabs[j]),true);
+  });
+});
+window.addEventListener('hashchange',fromHash);
+fromHash();
+})();"""
+
 def _diff_events(history: list[dict]) -> list[dict]:
     events = []
     for prev, cur in zip(history, history[1:]):
@@ -343,8 +375,7 @@ def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
     png_files = png_files or {}
     series = build_series(wayback or [], history)
     trend_html = section_html(series) if wayback else ""
-    if wayback:
-        trend_html += cases_section_html(series, cases)
+    cases_html = cases_section_html(series, cases) if wayback else ""
     counts = snap.counts
     e = html.escape
     geo = _load_geo(geo_path)
@@ -446,15 +477,55 @@ def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
         sel_html = ('<div id="sel" class="sel" hidden><span id="selmsg"></span> '
                     '<button type="button" id="clr" class="pick">全体表示に戻す</button></div>')
 
-    scroll_js = ("<script>document.querySelectorAll('.tscroll.chart').forEach(function(e){e.scrollLeft=e.scrollWidth;});</script>"
-                 if trend_html else "")
+    tab_defs = [("map", "地図"), ("pref", "県別一覧")]
+    if trend_html:
+        tab_defs.append(("trend", "推移"))
+    if cases_html:
+        tab_defs.append(("cases", "実施件数"))
+    tab_defs.append(("about", "出典など"))
+    tabs_nav = ('<div class="tabs" role="tablist" aria-label="表示の切り替え">' + "".join(
+        f'<button type="button" role="tab" id="t-{k}" data-key="{k}" aria-controls="p-{k}" '
+        f'aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}">{e(label)}</button>'
+        for i, (k, label) in enumerate(tab_defs)) + '</div>')
+
+    def panel(key, inner):
+        if not inner:
+            return ""
+        on = " on" if key == "map" else ""
+        return (f'<section class="tabpanel{on}" id="p-{key}" data-key="{key}" role="tabpanel" '
+                f'aria-labelledby="t-{key}">{inner}</section>')
+
     png_nat = (f' 　<a class="dl" href="{e(png_files["japan"])}" download>全国図をPNG画像で保存</a>'
                if "japan" in png_files else "")
     png_hint = ("（画像を開いて右クリック→「画像をコピー」でも貼り付けできます）" if png_files else "")
 
+    map_inner = f"""<p class="note">色のついた県（図形または数字）をクリック／タップすると、IFSA公式ページのその県の一覧が開きます（ブラウザの「戻る」で地図に戻れます）。{png_nat}{e(png_hint)}</p>
+<div id="mapwrap">
+{sel_html}
+{nat_svg}
+</div>
+<ul class="legend" aria-label="凡例">{legend}</ul>
+<p class="note">沖縄県は位置を移して枠内に表示しています。掲載のない県（{e('・'.join(zero))}）は0件として灰色で示していますが、
+「IFSAの公表ページに掲載がない」という意味であり、その県でエンバーミングが実施できないことを意味しません。</p>
+<h2>地域拡大図</h2>
+<div class="zooms">{''.join(figs)}</div>
+{comp_html}"""
+    pref_inner = f"""<h2>都道府県別センター数</h2>
+<table class="pt"><thead><tr><th>都道府県</th><th>センター数</th><th>運営会社（IFSA掲載名）</th></tr></thead>
+<tbody>{''.join(rows)}</tbody></table>
+"""
+    about_inner = f"""{ev_html}
+<h2>about</h2>
+<p class="note">地図の都道府県境界は、「地球地図日本」（国土地理院）をもとに、<a href="https://github.com/dataofjapan/land">dataofjapan/land</a>で公開されている変換データを簡略化・加工して作成しました。出典：<a href="http://www.gsi.go.jp/kankyochiri/gm_jpn.html">国土地理院ウェブサイト</a>。
+本ページはIFSAの公表情報を機械的に集計した非公式の資料で、IFSAおよび各社とは無関係です。
+センター数の推移は、<a href="https://web.archive.org/">Internet Archive</a>のWayback Machineに保存されたIFSAのページ、および毎週の自動確認の記録に基づきます。
+掲載内容はIFSAのページ更新に追従しますが、正確・最新の情報は必ず上記の公式サイトでご確認ください。
+集計値がページ記載の合計と一致しない場合は更新を中止する仕組みにしています。</p>
+"""
     doc = f"""<!doctype html>
 <html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.className="js"</script>
 <title>エンバーミングセンター分布マップ（IFSA公表情報）</title>
 <style>
 :root{{--bg:#fff;--fg:#1d1d1f;--mut:#666;--line:#ddd;--link:#0b5cad}}
@@ -490,31 +561,26 @@ svg.trend{{max-height:none;min-width:560px}}
 .sortbtn:first-of-type{{border-radius:6px 0 0 6px;margin-left:.4rem}} .sortbtn+.sortbtn{{border-radius:0 6px 6px 0;margin-left:-1px}}
 .sortbtn[aria-pressed="true"]{{background:var(--link);color:var(--bg);border-color:var(--link)}}
 details{{margin-top:.6rem}}
+
+.tabs{{display:none}}
+.js .tabs{{display:flex;gap:.2rem;overflow-x:auto;border-bottom:1px solid var(--line);margin:1rem 0 .6rem;position:sticky;top:0;z-index:6;background:var(--bg)}}
+.tabs button{{font:inherit;white-space:nowrap;background:transparent;color:var(--mut);border:0;border-bottom:3px solid transparent;padding:.55rem .85rem;cursor:pointer}}
+.tabs button:hover{{color:var(--fg)}}
+.tabs button[aria-selected="true"]{{color:var(--fg);font-weight:700;border-bottom-color:var(--link)}}
+.js .tabpanel{{display:none}} .js .tabpanel.on{{display:block}}
+.js .sel{{top:2.9rem}}
+.tabpanel>h2:first-child{{margin-top:.6rem}} h2{{scroll-margin-top:3.4rem}}
+@media (max-width:480px){{.tabs button{{padding:.55rem .45rem}}}}
+@media print{{.tabs{{display:none!important}} .js .tabpanel{{display:block!important}}}}
 </style></head><body><main>
 <h1>エンバーミングセンター分布マップ</h1>
 <p class="meta">全国 {len(snap.facilities)}都道府県・{snap.total}センター／最終確認日：{e(checked_at)}／記録開始：{e(first)}<br>
 出典：<a href="{e(source_url)}">一般社団法人 日本遺体衛生保全協会（IFSA）公式サイト「IFSA組織案内」</a>（ページ記載の施設数を都道府県別に集計）</p>
-<p class="note">色のついた県（図形または数字）をクリック／タップすると、IFSA公式ページのその県の一覧が開きます（ブラウザの「戻る」で地図に戻れます）。{png_nat}{e(png_hint)}</p>
-<div id="mapwrap">
-{sel_html}
-{nat_svg}
-</div>
-<ul class="legend" aria-label="凡例">{legend}</ul>
-<p class="note">沖縄県は位置を移して枠内に表示しています。掲載のない県（{e('・'.join(zero))}）は0件として灰色で示していますが、
-「IFSAの公表ページに掲載がない」という意味であり、その県でエンバーミングが実施できないことを意味しません。</p>
-<h2>地域拡大図</h2>
-<div class="zooms">{''.join(figs)}</div>
-{comp_html}
-{trend_html}
-<h2>都道府県別センター数</h2>
-<table class="pt"><thead><tr><th>都道府県</th><th>センター数</th><th>運営会社（IFSA掲載名）</th></tr></thead>
-<tbody>{''.join(rows)}</tbody></table>
-{ev_html}
-<h2>about</h2>
-<p class="note">地図の都道府県境界は、「地球地図日本」（国土地理院）をもとに、<a href="https://github.com/dataofjapan/land">dataofjapan/land</a>で公開されている変換データを簡略化・加工して作成しました。出典：<a href="http://www.gsi.go.jp/kankyochiri/gm_jpn.html">国土地理院ウェブサイト</a>。
-本ページはIFSAの公表情報を機械的に集計した非公式の資料で、IFSAおよび各社とは無関係です。
-センター数の推移は、<a href="https://web.archive.org/">Internet Archive</a>のWayback Machineに保存されたIFSAのページ、および毎週の自動確認の記録に基づきます。
-掲載内容はIFSAのページ更新に追従しますが、正確・最新の情報は必ず上記の公式サイトでご確認ください。
-集計値がページ記載の合計と一致しない場合は更新を中止する仕組みにしています。</p>
-</main>{script}{scroll_js}</body></html>"""
+{tabs_nav}
+{panel("map", map_inner)}
+{panel("pref", pref_inner)}
+{panel("trend", trend_html)}
+{panel("cases", cases_html)}
+{panel("about", about_inner)}
+</main>{script}<script>{TABS_JS}</script></body></html>"""
     out_path.write_text(doc, encoding="utf-8")
