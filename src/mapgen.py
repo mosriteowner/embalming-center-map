@@ -319,6 +319,15 @@ if(location.hash.indexOf('#c=')===0){
 })();"""
 
 
+# タブのアイコン（24x24、線画。色は文字色に追従する）
+TAB_ICONS = {
+    "map": '<path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/>',
+    "pref": '<path d="M8 6h13M8 12h13M8 18h13"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/>',
+    "trend": '<path d="M3 3v18h18"/><path d="M7 16l4-5 3 3 6-7"/>',
+    "cases": '<path d="M6 20v-6M12 20V6M18 20v-9" stroke-width="3"/>',
+    "about": '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/>',
+}
+
 TABS_JS = """(function(){
 var tabs=[].slice.call(document.querySelectorAll('[role=tab]')), panels=[].slice.call(document.querySelectorAll('.tabpanel'));
 function kOf(el){return el.getAttribute('data-key');}
@@ -485,7 +494,8 @@ def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
     tab_defs.append(("about", "出典など"))
     tabs_nav = ('<div class="tabs" role="tablist" aria-label="表示の切り替え">' + "".join(
         f'<button type="button" role="tab" id="t-{k}" data-key="{k}" aria-controls="p-{k}" '
-        f'aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}">{e(label)}</button>'
+        f'aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}">'
+        f'<svg class="ti" viewBox="0 0 24 24" aria-hidden="true">{TAB_ICONS[k]}</svg><span>{e(label)}</span></button>'
         for i, (k, label) in enumerate(tab_defs)) + '</div>')
 
     def panel(key, inner):
@@ -528,8 +538,8 @@ def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
 <script>document.documentElement.className="js"</script>
 <title>エンバーミングセンター分布マップ（IFSA公表情報）</title>
 <style>
-:root{{--bg:#fff;--fg:#1d1d1f;--mut:#666;--line:#ddd;--link:#0b5cad}}
-@media (prefers-color-scheme:dark){{:root{{--bg:#16181d;--fg:#e8e8ea;--mut:#9a9aa2;--line:#33363d;--link:#7db7ff}}}}
+:root{{--bg:#fff;--fg:#1d1d1f;--mut:#666;--line:#ddd;--link:#0b5cad;--card:#f4f6f9;--on:#fff}}
+@media (prefers-color-scheme:dark){{:root{{--bg:#16181d;--fg:#e8e8ea;--mut:#9a9aa2;--line:#33363d;--link:#7db7ff;--card:#22252c;--on:#10131a}}}}
 body{{margin:0;padding:1rem;background:var(--bg);color:var(--fg);font-family:"Hiragino Sans","Noto Sans JP",Meiryo,sans-serif;line-height:1.6}}
 main{{max-width:960px;margin:auto}}
 a{{color:var(--link)}}
@@ -563,14 +573,18 @@ svg.trend{{max-height:none;min-width:560px}}
 details{{margin-top:.6rem}}
 
 .tabs{{display:none}}
-.js .tabs{{display:flex;gap:.2rem;overflow-x:auto;border-bottom:1px solid var(--line);margin:1rem 0 .6rem;position:sticky;top:0;z-index:6;background:var(--bg)}}
-.tabs button{{font:inherit;white-space:nowrap;background:transparent;color:var(--mut);border:0;border-bottom:3px solid transparent;padding:.55rem .85rem;cursor:pointer}}
-.tabs button:hover{{color:var(--fg)}}
-.tabs button[aria-selected="true"]{{color:var(--fg);font-weight:700;border-bottom-color:var(--link)}}
+.js .tabs{{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:.4rem;margin:1rem 0 .8rem;padding:.45rem 0;position:sticky;top:0;z-index:6;background:var(--bg);border-bottom:1px solid var(--line)}}
+.tabs button{{font:inherit;font-size:.92rem;display:flex;align-items:center;justify-content:center;gap:.4rem;min-width:0;
+ color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.55rem .5rem;cursor:pointer;
+ box-shadow:0 1px 2px rgba(0,0,0,.12);transition:background .12s,border-color .12s}}
+.tabs button:hover{{border-color:var(--link)}}
+.tabs button:focus-visible{{outline:2px solid var(--link);outline-offset:2px}}
+.tabs button[aria-selected="true"]{{background:var(--link);border-color:var(--link);color:var(--on);font-weight:700;box-shadow:none}}
+.ti{{width:1.25em;height:1.25em;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}}
 .js .tabpanel{{display:none}} .js .tabpanel.on{{display:block}}
-.js .sel{{top:2.9rem}}
-.tabpanel>h2:first-child{{margin-top:.6rem}} h2{{scroll-margin-top:3.4rem}}
-@media (max-width:480px){{.tabs button{{padding:.55rem .45rem}}}}
+.js .sel{{top:5.2rem}}
+.tabpanel>h2:first-child{{margin-top:.6rem}} h2{{scroll-margin-top:5.4rem}}
+@media (max-width:560px){{.tabs button{{flex-direction:column;gap:.15rem;font-size:.78rem;padding:.45rem .1rem}} .ti{{width:1.5em;height:1.5em}}}}
 @media print{{.tabs{{display:none!important}} .js .tabpanel{{display:block!important}}}}
 </style></head><body><main>
 <h1>エンバーミングセンター分布マップ</h1>
