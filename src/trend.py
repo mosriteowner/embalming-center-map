@@ -7,7 +7,7 @@
 表現の方針:
   * 点は「その日にIFSAのページがその数字を載せていた」という観測。点と点の間は結ぶだけで、
     その間に何があったかは分からない（保存の間隔が180日を超える区間は破線にする）。
-  * ページ記載の合計と照合できた点は塗りつぶし、照合できなかった点は白抜きにする。
+  * SHOW_VERIFICATION が True のとき、ページ記載の合計と照合できた点は塗りつぶし、できなかった点は白抜きにする。
   * 増減の理由（新設・閉鎖・掲載基準の変更など）はデータから分からないので、何も主張しない。
 """
 from __future__ import annotations
@@ -18,6 +18,10 @@ from datetime import date
 from pathlib import Path
 
 GAP_DAYS = 180   # これを超える間隔は破線で結ぶ
+
+# ページ記載の合計との照合結果（●塗りつぶし／○白抜き）と、照合に関する注記を画面に出すか。
+# False でも、照合の結果は data/wayback_history.json の status に記録され続ける。
+SHOW_VERIFICATION = False
 
 
 def _d(s: str) -> date:
@@ -102,7 +106,7 @@ def chart_svg(series: list[dict]) -> str:
     cps = {(c["d"], c["total"]) for c in change_points(series)}
     for p in series:
         x, y = px(p["d"]), py(p["total"])
-        cls = "mk" if p["ok"] else "mk open"
+        cls = "mk" if (p["ok"] or not SHOW_VERIFICATION) else "mk open"
         if p["kind"] == "live":
             marks.append(f'<rect x="{x - 4.5:.1f}" y="{y - 4.5:.1f}" width="9" height="9" class="{cls}"/>')
         else:
@@ -133,6 +137,14 @@ def section_html(series: list[dict]) -> str:
     n_ok = sum(1 for p in series if p["ok"] and p["kind"] == "wb")
     n_wb = sum(1 for p in series if p["kind"] == "wb")
     n_live = len(series) - n_wb
+    if SHOW_VERIFICATION:
+        legend_note = ("● ページ記載の合計と一致を確認できた点　○ 照合できなかった点（ページに合計表記がない時期）　"
+                       "■ 毎週の自動確認による点　破線は保存の間隔が半年を超える区間（その間の動きは分かりません）。")
+        verif_note = (f'ページ記載の合計と照合できたのは、Wayback由来の{n_wb}件のうち{n_ok}件で、'
+                      'それ以前の保存は照合手段がなく、参考値です。')
+    else:
+        legend_note = "■ 毎週の自動確認による点　破線は保存の間隔が半年を超える区間（その間の動きは分かりません）。"
+        verif_note = ""
     cnt = f"Wayback Machineの保存{n_wb}件" + (f"と毎週の自動確認{n_live}件" if n_live else "")
     rows = []
     for c in cps:
@@ -142,29 +154,26 @@ def section_html(series: list[dict]) -> str:
             dv = c["total"] - c["prev"]["total"]
             diff = f"{dv:+d}"
             when = f'{_fmt(c["prev"]["d"])} 〜 {_fmt(c["d"])}'
-        chk = "一致" if c["ok"] else "照合不可"
         src = "（毎週の自動確認）" if c["kind"] == "live" else ""
         rows.append(f'<tr><td>{_fmt(c["d"])}{src}</td><td class="n">{c["total"]}</td>'
                     f'<td class="n">{diff}</td><td class="n">{c["prefs"]}</td>'
-                    f'<td>{when}</td><td>{chk}</td></tr>')
+                    f'<td>{when}</td></tr>')
     return (
         '<h2 id="trend">センター数の推移</h2>'
         f'<p class="note">{_fmt(series[0]["d"])}から{_fmt(series[-1]["d"])}までの、IFSA「組織案内」ページに載っていた'
         f'センター数です（{cnt}）。2015年3月より前は、Internet Archiveに保存がなく、'
         '分かりません（スマホでは、図を横にスクロールできます）。</p>'
         '<div class="tscroll chart">' + chart_svg(series) + '</div>' +
-        '<p class="note">● ページ記載の合計と一致を確認できた点　○ 照合できなかった点（ページに合計表記がない時期）　'
-        '■ 毎週の自動確認による点　破線は保存の間隔が半年を超える区間（その間の動きは分かりません）。</p>'
+        f'<p class="note">{legend_note}</p>'
         '<h3 class="sub">数字が変わった時点</h3>'
         '<div class="tscroll"><table class="pt nw"><thead><tr><th>最初に確認できた保存日</th><th>センター数</th><th>前回比</th>'
-        '<th>都道府県数</th><th>変更があった時期</th><th>ページ記載との照合</th></tr></thead>'
+        '<th>都道府県数</th><th>変更があった時期</th></tr></thead>'
         '<tbody>' + "".join(rows) + '</tbody></table></div>'
         '<p class="note">「変更があった時期」は、数字が変わる前の最後の保存日から、変わったことを確認した保存日までの間です。'
         'この範囲のどこかで、IFSAのページの掲載が変わりました。'
         '点は、Internet Archive（Wayback Machine）が保存した日にページに載っていた数字を、'
         '現在のIFSAページと同じ方法で集計したものです。'
-        f'ページ記載の合計と照合できたのは、Wayback由来の{n_wb}件のうち{n_ok}件で、'
-        'それ以前の保存は照合手段がなく、参考値です。'
+        + verif_note +
         'ここで分かるのは<b>IFSAのページの掲載内容の変化</b>で、実際の開設・閉鎖の日付、'
         'および増減の理由は、このデータからは分かりません。'
         '出典：<a href="https://web.archive.org/web/*/https://www.embalming.jp/organization/">'
@@ -227,7 +236,7 @@ def cases_chart_svg(series: list[dict], cases: dict) -> str:
                     f'y2="{py1(b["total"]):.1f}" class="ln"{dash}/>')
     for p in series:
         x, y = px(p["d"]), py1(p["total"])
-        cls = "mk" if p["ok"] else "mk open"
+        cls = "mk" if (p["ok"] or not SHOW_VERIFICATION) else "mk open"
         if p["kind"] == "live":
             marks.append(f'<rect x="{x - 4:.1f}" y="{y - 4:.1f}" width="8" height="8" class="{cls}"/>')
         else:
@@ -296,7 +305,8 @@ def cases_section_html(series: list[dict], cases: dict | None) -> str:
         '<div class="tscroll chart">' + cases_chart_svg(series, cases) + '</div>'
         '<p class="note">棒＝年間実施件数（暦年。各年の中央に置いています）。1988〜2016年と2018〜2025年はグラフ画像の数値ラベル（2年おきと2025年）、'
         '薄い棒の2017年は同ページ本文の表の値です。◇＝同ページ本文の表に書かれたセンター数。'
-        '●○■と破線は前の節と同じ意味です。センター数は保存日時点の値、実施件数は年間の値で、時点が異なります。</p>'
+        + ("●○■と破線は前の節と同じ意味です。" if SHOW_VERIFICATION else "■と破線は前の節と同じ意味です。") +
+        'センター数は保存日時点の値、実施件数は年間の値で、時点が異なります。</p>'
         '<h3 class="sub">IFSA本文の表の記載と、組織案内ページの保存との比較</h3>'
         '<div class="tscroll"><table class="pt nw"><thead><tr><th>年</th><th>年間実施件数</th><th>累計件数</th>'
         '<th>IFSA本文の表のセンター数</th><th>同じ年の組織案内ページの保存で確認できた範囲</th></tr></thead>'
