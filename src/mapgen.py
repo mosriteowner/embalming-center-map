@@ -13,6 +13,7 @@ import unicodedata
 from pathlib import Path
 
 from companies import company_stats
+from company_view import view_html as company_view_html
 from parse import PREFECTURES, Snapshot
 from embalmers import section_html as emb_section_html
 from trend import build_series, cases_section_html, section_html
@@ -66,6 +67,9 @@ REGIONS = [
 
 # 事業者別の表・クリック機能（現在は保留中。Trueにすると再び有効になる）
 SHOW_COMPANIES = False
+
+# 「一覧」タブの［県別］［社別］切り替え（社別＝事業者の五十音順の一覧）。Trueにすると、切り替えボタンが出る。
+SHOW_COMPANY_LIST = False
 
 OKINAWA_SHIFT = (-3.0, 5.8)   # 全国図で沖縄を九州の西の海上に移す(経度, 緯度)
 SCALE = 55.0                  # 全国図: px / 緯度1度
@@ -330,6 +334,13 @@ TAB_ICONS = {
     "about": '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/>',
 }
 
+SEG_JS = """(function(){
+var b=[].slice.call(document.querySelectorAll('.seg button'));
+b.forEach(function(x){x.addEventListener('click',function(){var v=x.getAttribute('data-v');
+ b.forEach(function(y){y.setAttribute('aria-pressed',y===x?'true':'false');});
+ [].forEach.call(document.querySelectorAll('.vw'),function(w){w.classList.toggle('on',w.id==='v-'+v);});});});
+})();"""
+
 TABS_JS = """(function(){
 var tabs=[].slice.call(document.querySelectorAll('[role=tab]')), panels=[].slice.call(document.querySelectorAll('.tabpanel'));
 function kOf(el){return el.getAttribute('data-key');}
@@ -383,7 +394,7 @@ def _diff_events(history: list[dict]) -> list[dict]:
 def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
            out_path: Path, source_url: str, png_files: dict[str, str] | None = None,
            wayback: list[dict] | None = None, cases: dict | None = None,
-           embalmers: dict | None = None) -> None:
+           embalmers: dict | None = None, readings: dict | None = None) -> None:
     png_files = png_files or {}
     series = build_series(wayback or [], history)
     trend_html = section_html(series) if wayback else ""
@@ -490,7 +501,7 @@ def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
         sel_html = ('<div id="sel" class="sel" hidden><span id="selmsg"></span> '
                     '<button type="button" id="clr" class="pick">全体表示に戻す</button></div>')
 
-    tab_defs = [("map", "地図"), ("pref", "県別一覧")]
+    tab_defs = [("map", "地図"), ("pref", "一覧")]
     if trend_html:
         tab_defs.append(("trend", "推移"))
     if cases_html:
@@ -526,10 +537,20 @@ def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
 <h2>地域拡大図</h2>
 <div class="zooms">{''.join(figs)}</div>
 {comp_html}"""
-    pref_inner = f"""<h2>都道府県別センター数</h2>
+    pref_table = f"""<h2>都道府県別センター数</h2>
 <table class="pt"><thead><tr><th>都道府県</th><th>センター数</th><th>運営会社（IFSA掲載名）</th></tr></thead>
 <tbody>{''.join(rows)}</tbody></table>
 """
+    if SHOW_COMPANY_LIST:
+        co_inner, _missing = company_view_html(snap, readings)
+        pref_inner = (
+            '<div class="seg" role="group" aria-label="一覧の切り替え">'
+            '<button type="button" data-v="pref" aria-pressed="true">県別</button>'
+            '<button type="button" data-v="co" aria-pressed="false">社別</button></div>'
+            f'<div class="vw on" id="v-pref">{pref_table}</div>'
+            f'<div class="vw" id="v-co">{co_inner}</div>')
+    else:
+        pref_inner = pref_table
     about_inner = f"""{ev_html}
 <h2>about</h2>
 <p class="note">地図の都道府県境界は、「地球地図日本」（国土地理院）をもとに、<a href="https://github.com/dataofjapan/land">dataofjapan/land</a>で公開されている変換データを簡略化・加工して作成しました。出典：<a href="http://www.gsi.go.jp/kankyochiri/gm_jpn.html">国土地理院ウェブサイト</a>。
@@ -538,6 +559,7 @@ def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
 掲載内容はIFSAのページ更新に追従しますが、正確・最新の情報は必ず上記の公式サイトでご確認ください。
 集計値がページ記載の合計と一致しない場合は更新を中止する仕組みにしています。</p>
 """
+    seg_script = f"<script>{SEG_JS}</script>" if SHOW_COMPANY_LIST else ""
     doc = f"""<!doctype html>
 <html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -554,6 +576,18 @@ h1{{font-size:1.35rem;margin:.2rem 0}} h2{{font-size:1.1rem;margin-top:2rem}}
 svg{{width:100%;height:auto;max-height:80vh}}
 svg a{{cursor:pointer}} svg a:hover path{{stroke:#000;stroke-width:1.8}}
 .sm{{font-size:.78rem;color:var(--mut)}}
+.seg{{display:inline-flex;margin:.2rem 0 .6rem;border:1px solid var(--line);border-radius:.6rem;overflow:hidden}}
+.seg button{{font:inherit;font-size:.92rem;padding:.4rem 1.2rem;border:0;background:var(--card);color:var(--fg);cursor:pointer}}
+.seg button+button{{border-left:1px solid var(--line)}}
+.seg button[aria-pressed="true"]{{background:var(--link);color:var(--on);font-weight:700}}
+.seg button:focus-visible{{outline:2px solid var(--link);outline-offset:-2px}}
+.seg{{display:none}} .js .seg{{display:inline-flex}}
+.js .vw{{display:none}} .js .vw.on{{display:block}}
+table.co tr.gh th,table.co tr.gh td{{background:var(--card);font-weight:700}}
+table.co tr.gm th{{font-weight:400}}
+table.co tbody{{border-top:1px solid var(--line)}}
+table.co tbody th{{white-space:normal;word-break:break-all;min-width:7rem}} table.co thead th{{white-space:nowrap}} table.co td:nth-child(3){{min-width:6.5rem}} table.co tr.gm th{{padding-left:1.2rem}}
+@media print{{.seg{{display:none!important}} .js .vw{{display:block!important}}}}
 .legend li{{display:flex;align-items:center;gap:.35rem}} svg.lg{{min-width:0;width:16px;height:16px;flex:none}}
 .legend{{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem 1rem;padding:0;font-size:.85rem}}
 .sw{{display:inline-block;width:1em;height:1em;border:1px solid #666;margin-right:.3em;vertical-align:-.15em}}
@@ -605,5 +639,5 @@ details{{margin-top:.6rem}}
 {panel("cases", cases_html)}
 {panel("emb", emb_html)}
 {panel("about", about_inner)}
-</main>{script}<script>{TABS_JS}</script></body></html>"""
+</main>{script}<script>{TABS_JS}</script>{seg_script}</body></html>"""
     out_path.write_text(doc, encoding="utf-8")

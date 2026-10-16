@@ -17,6 +17,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from companies import company_stats, count_companies  # noqa: E402
 from mapgen import SHOW_COMPANIES, render, render_pngs  # noqa: E402
 from parse import ParseError, parse  # noqa: E402
+from company_view import build as build_company_view, load_readings  # noqa: E402
 from embalmers import load_embalmers  # noqa: E402
 from trend import load_cases, load_wayback  # noqa: E402
 
@@ -27,6 +28,7 @@ HISTORY = ROOT / "data" / "history.json"
 WAYBACK = ROOT / "data" / "wayback_history.json"
 CASES = ROOT / "data" / "ifsa_cases.json"
 EMBALMERS = ROOT / "data" / "ifsa_embalmers.json"
+READINGS = ROOT / "data" / "company_readings.json"
 GEO = ROOT / "data" / "japan_simplified.geojson"
 OUT = ROOT / "docs" / "index.html"
 UA = "embalming-center-map/1.0 (+https://github.com/mosriteowner/embalming-center-map; weekly fetch)"
@@ -63,6 +65,12 @@ def main() -> int:
         print(f"[WARN] 事業者数が不一致: 集計={n_co} / ページ記載={snap.declared[1]}"
               "（会社名の表記ゆれの可能性。事業者別の表は参考値です）", file=sys.stderr)
 
+    # 読み仮名が未登録の事業者があれば警告（更新は止めない。社別の一覧では末尾にまとめて表示される）
+    _items, no_reading = build_company_view(snap, load_readings(READINGS))
+    if no_reading:
+        print(f"[WARN] 読み仮名が未登録の事業者があります: {'、'.join(no_reading)}"
+              "（data/company_readings.json に追記してください）", file=sys.stderr)
+
     hp = Path(a.history)
     history = json.loads(hp.read_text(encoding="utf-8")) if hp.exists() else []
     new_rec = {"date": today, "total": snap.total, "counts": snap.counts,
@@ -87,7 +95,7 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         print(f"[WARN] PNG生成をスキップしました（フォント/cairo未導入など）: {e}", file=sys.stderr)
     render(snap, history, today, GEO, outp, SOURCE_URL, png_files,
-           wayback=load_wayback(WAYBACK), cases=load_cases(CASES), embalmers=load_embalmers(EMBALMERS))
+           wayback=load_wayback(WAYBACK), cases=load_cases(CASES), embalmers=load_embalmers(EMBALMERS), readings=load_readings(READINGS))
     (outp.parent / ".nojekyll").write_text("", encoding="utf-8")
     print(f"[INFO] 生成: {outp}")
     return 0
