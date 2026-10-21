@@ -276,9 +276,13 @@ def cases_chart_svg(series: list[dict], cases: dict) -> str:
             + "".join(g) + "".join(segs) + "".join(marks) + "".join(bars) + "</svg>")
 
 
-def cases_section_html(series: list[dict], cases: dict | None) -> str:
+def cases_section_html(series: list[dict], cases: dict | None, deaths: dict | None = None) -> str:
     if not cases or not cases.get("annual") or len(series) < 2:
         return ""
+    return _cases_section(series, cases) + ratio_section_html(cases, deaths)
+
+
+def _cases_section(series: list[dict], cases: dict) -> str:
     # 表: IFSA本文の表の記載 と、同じ年に組織案内ページの保存で確認できた範囲
     rows = []
     for r in cases.get("text_table", []):
@@ -316,3 +320,90 @@ def cases_section_html(series: list[dict], cases: dict | None) -> str:
         '実施件数・センター数とも、IFSAが自ら公表した数字で、第三者による検証はありません。'
         '出典：<a href="' + html.escape(cases["source_url"]) + '">IFSA「医療従事者の立場から」</a>'
         f'（{html.escape(cases["retrieved"])}確認）。</p>')
+
+
+# ---- 実施件数 ÷ 全国の死亡数 ----
+
+def load_deaths(path: Path) -> dict | None:
+    if not Path(path).exists():
+        return None
+    d = json.loads(Path(path).read_text(encoding="utf-8"))
+    d["by_year"] = {r["year"]: r for r in d.get("deaths", [])}
+    return d
+
+
+def ratio_rows(cases: dict, deaths: dict | None) -> list[dict]:
+    """実施件数のある年のうち、死亡数のある年について、比（％）を返す（年の古い順）。"""
+    if not deaths:
+        return []
+    out = []
+    for r in sorted(cases.get("annual", []), key=lambda r: r["year"]):
+        dr = deaths["by_year"].get(r["year"])
+        if dr:
+            out.append({"year": r["year"], "cases": r["cases"], "deaths": dr["deaths"],
+                        "kind": dr.get("kind", ""), "from": r.get("from", ""),
+                        "pct": r["cases"] / dr["deaths"] * 100})
+    return out
+
+
+def ratio_chart_svg(rows: list[dict]) -> str:
+    W, H, L, R = 900, 380, 70, 24
+    top, bot = 44, 320
+    d0, d1 = date(1988, 1, 1), date(2027, 1, 1)
+    span = (d1 - d0).days
+    px = lambda d: L + (d - d0).days / span * (W - L - R)                       # noqa: E731
+    ymax = int(max(r["pct"] for r in rows)) + 1
+    py = lambda v: bot - v / ymax * (bot - top)                                 # noqa: E731
+    g = []
+    for y in range(1988, 2027, 4):
+        x = px(date(y, 1, 1))
+        g.append(f'<line x1="{x:.1f}" x2="{x:.1f}" y1="{top}" y2="{bot}" class="tg"/>'
+                 f'<text x="{x:.1f}" y="{bot + 30}" text-anchor="middle" class="tt">{y}</text>')
+    for v in range(0, ymax + 1):
+        g.append(f'<line x1="{L}" x2="{W - R}" y1="{py(v):.1f}" y2="{py(v):.1f}" class="tg"/>'
+                 f'<text x="{L - 8}" y="{py(v) + 7:.1f}" text-anchor="end" class="tt">{v}%</text>')
+    g.append(f'<line x1="{L}" x2="{W - R}" y1="{bot}" y2="{bot}" class="ta"/>')
+    g.append(f'<text x="{L}" y="26" class="tp">年間の実施件数 ÷ 全国の年間死亡数（％）</text>')
+    pts = [(px(date(r["year"], 7, 1)), py(r["pct"])) for r in rows]
+    line = "".join(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" class="ln"/>'
+                   for a, b in zip(pts, pts[1:]))
+    marks = []
+    labeled = {1992, 1996, 2000, 2008, 2016, 2020, 2024, 2025}
+    for r, (x, y) in zip(rows, pts):
+        cls = "mk open" if r["from"] == "text" else "mk"
+        marks.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="4.5" class="{cls}"/>')
+        if r["year"] in labeled:
+            anc, dx, dy = {2016: ("end", -10, -8), 2024: ("end", -8, -12), 2025: ("start", 10, 6)}.get(
+                r["year"], ("middle", 0, -14))
+            marks.append(f'<text x="{x + dx:.1f}" y="{y + dy:.1f}" text-anchor="{anc}" class="tv">{r["pct"]:.1f}%</text>')
+    label = (f'年間の実施件数を全国の年間死亡数で割った比の折れ線グラフ（{rows[0]["year"]}年{rows[0]["pct"]:.2f}%から'
+             f'{rows[-1]["year"]}年{rows[-1]["pct"]:.2f}%）')
+    return (f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="{html.escape(label)}" class="trend">'
+            '<style>.tg{stroke:var(--line);stroke-width:1}.ta{stroke:var(--mut);stroke-width:1.2}'
+            '.tt{fill:var(--mut);font-size:21px}.tp{fill:var(--fg);font-size:22px;font-weight:700}'
+            '.tv{fill:var(--fg);font-size:19px;font-weight:700}'
+            '.ln{stroke:var(--link);stroke-width:2;fill:none}'
+            '.mk{fill:var(--link);stroke:var(--link);stroke-width:2}.mk.open{fill:var(--bg)}</style>'
+            + "".join(g) + line + "".join(marks) + "</svg>")
+
+
+def ratio_section_html(cases: dict, deaths: dict | None) -> str:
+    rows = ratio_rows(cases, deaths)
+    if len(rows) < 2:
+        return ""
+    trs = "".join(
+        f'<tr><td>{r["year"]}</td><td class="n">{r["cases"]:,}</td><td class="n">{r["deaths"]:,}</td>'
+        f'<td class="n">{r["pct"]:.2f}%</td></tr>' for r in rows)
+    return (
+        '<h2 id="ratio">全国の死亡数に対する実施件数の比</h2>'
+        '<p class="note">IFSAが公表している年間の実施件数を、厚生労働省の人口動態統計の全国の年間死亡数で割った比です。'
+        '同じ時間軸に並べただけで、数字の意味づけは、ご覧になる方にお任せします（スマホでは、図を横にスクロールできます）。</p>'
+        '<div class="tscroll chart">' + ratio_chart_svg(rows) + '</div>'
+        '<p class="note">分母の死亡数は、日本における日本人の死亡数です。分子の実施件数には、外国人の処置や、海外で亡くなった方の搬送などが'
+        '含まれている可能性があり、「日本人の死亡のうち処置を受けた方の割合」ではなく、「年間死亡数に対する処置件数の比」です。'
+        '白抜きの点（2017年）は、実施件数がIFSAのページ本文の表の値、それ以外はグラフ画像の数値ラベルの転記です。'
+        '2024年と2025年の死亡数は確定数、1988〜2023年は人口動態統計の年次推移の表の値です。'
+        '出典：<a href="' + html.escape(deaths["source_url"]) + '">厚生労働省 人口動態統計</a>'
+        f'（{html.escape(deaths["retrieved"])}確認）、IFSA「医療従事者の立場から」。</p>'
+        '<details><summary>年ごとの数値</summary><div class="tscroll"><table class="pt nw"><thead><tr><th>年</th>'
+        '<th>実施件数</th><th>全国の死亡数</th><th>比</th></tr></thead><tbody>' + trs + '</tbody></table></div></details>')

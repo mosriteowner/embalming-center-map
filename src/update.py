@@ -19,7 +19,7 @@ from mapgen import SHOW_COMPANIES, render, render_pngs  # noqa: E402
 from parse import ParseError, parse  # noqa: E402
 from company_view import build as build_company_view, load_readings  # noqa: E402
 from embalmers import load_embalmers  # noqa: E402
-from trend import load_cases, load_wayback  # noqa: E402
+from trend import load_cases, load_deaths, load_wayback  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE_URL = "https://www.embalming.jp/organization/"
@@ -29,6 +29,7 @@ WAYBACK = ROOT / "data" / "wayback_history.json"
 CASES = ROOT / "data" / "ifsa_cases.json"
 EMBALMERS = ROOT / "data" / "ifsa_embalmers.json"
 READINGS = ROOT / "data" / "company_readings.json"
+DEATHS = ROOT / "data" / "deaths.json"
 GEO = ROOT / "data" / "japan_simplified.geojson"
 OUT = ROOT / "docs" / "index.html"
 UA = "embalming-center-map/1.0 (+https://github.com/mosriteowner/embalming-center-map; weekly fetch)"
@@ -95,7 +96,8 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         print(f"[WARN] PNG生成をスキップしました（フォント/cairo未導入など）: {e}", file=sys.stderr)
     render(snap, history, today, GEO, outp, SOURCE_URL, png_files,
-           wayback=load_wayback(WAYBACK), cases=load_cases(CASES), embalmers=load_embalmers(EMBALMERS), readings=load_readings(READINGS))
+           wayback=load_wayback(WAYBACK), cases=load_cases(CASES), embalmers=load_embalmers(EMBALMERS), readings=load_readings(READINGS),
+           deaths=load_deaths(DEATHS))
     (outp.parent / ".nojekyll").write_text("", encoding="utf-8")
     print(f"[INFO] 生成: {outp}")
     return 0

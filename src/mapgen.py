@@ -69,7 +69,7 @@ REGIONS = [
 SHOW_COMPANIES = False
 
 # 「一覧」タブの［県別］［社別］切り替え（社別＝事業者の五十音順の一覧）。Trueにすると、切り替えボタンが出る。
-SHOW_COMPANY_LIST = True
+SHOW_COMPANY_LIST = False
 
 OKINAWA_SHIFT = (-3.0, 5.8)   # 全国図で沖縄を九州の西の海上に移す(経度, 緯度)
 SCALE = 55.0                  # 全国図: px / 緯度1度
@@ -394,11 +394,12 @@ def _diff_events(history: list[dict]) -> list[dict]:
 def render(snap: Snapshot, history: list[dict], checked_at: str, geo_path: Path,
            out_path: Path, source_url: str, png_files: dict[str, str] | None = None,
            wayback: list[dict] | None = None, cases: dict | None = None,
-           embalmers: dict | None = None, readings: dict | None = None) -> None:
+           embalmers: dict | None = None, readings: dict | None = None,
+           deaths: dict | None = None) -> None:
     png_files = png_files or {}
     series = build_series(wayback or [], history)
     trend_html = section_html(series) if wayback else ""
-    cases_html = cases_section_html(series, cases) if wayback else ""
+    cases_html = cases_section_html(series, cases, deaths) if wayback else ""
     emb_html = emb_section_html(embalmers)
     counts = snap.counts
     e = html.escape
