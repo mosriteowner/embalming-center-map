@@ -1,64 +1,18 @@
 ===== 0602.html（20030820110753（指定の版））=====
 IFSA_____International Funeral Science Association in Japan_____
- | 
- | 
- | 
- | 
  | [画像:IFSA International Funeral Science Association in Japan 日本遺体衛生保全協会]
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
  | [画像:エンバーミングとは・・・]
- | 
- | 
- | 
  | [画像:エンバーミングの歴史]
- | 
- | 
- | 
  | [画像:エンバーミングの法的解釈]
- | 
- | 
- | 
  | [画像:医療従事者の立場から]
- | 
- | 
- | 
  | [画像:エンバーミングの実際]
- | 
- | 
- | 
  | [画像:なぜエンバーミング]
- | 
- | 
- | 
  | [画像:感染症の実態]
- | 
- | 
  | [画像:IFSA組織案内]
- | 
- | 
- | 
  | [画像:お問い合わせ]
- | 
  | [画像:エンバーミングセンター案内]
- | 
 [画像:Return]
- | 
 [画像:Home]
- | 
- | 
- | 
- | 
- | 
- | 
- |
 
 --- リンク ---
   エンバーミングとは・・・ -> 04.html
@@ -72,68 +26,69 @@ IFSA_____International Funeral Science Association in Japan_____
   お問い合わせ -> ../formmail/contact.html
   Return -> 06.html
   Home -> ../index.html
+
+--- 画像地図（クリックできる領域）---
+  北海道 -> 0602-1.html
+  福島 -> 0602-2.html
+  栃木 -> 0602-3.html
+  千葉 -> 0602-4.html
+  東京 -> 0602-5.html
+  埼玉 -> 0602-6.html
+  神奈川 -> 0602-7.html
+  山梨 -> 0602-8.html
+  大阪 -> 0602-9.html
+  広島 -> 0602-10.html
+  熊本 -> 0602-11.html
+  鹿児島 -> 0602-12.html
+
+--- 画像（この版は文字が画像のことがある）---
+  ../images/others/ifsa_top.gif -> img/images_others_ifsa_top.gif
+  ../images/menu/menu_r1_c1.gif -> img/images_menu_menu_r1_c1.gif
+  ../images/menu/menu_r2_c1.gif -> img/images_menu_menu_r2_c1.gif
+  ../images/menu/04bottan.gif -> img/images_menu_04bottan.gif
+  ../images/menu/menu_r03_c1.gif -> img/images_menu_menu_r03_c1.gif
+  ../images/menu/menu_r4_c1.gif -> img/images_menu_menu_r4_c1.gif
+  ../images/menu/menu_r4_c2.gif -> img/images_menu_menu_r4_c2.gif
+  ../images/menu/menu_r05_c1.gif -> img/images_menu_menu_r05_c1.gif
+  ../images/menu/menu_r6_c1.gif -> img/images_menu_menu_r6_c1.gif
+  ../images/menu/menu_r6_c2.gif -> img/images_menu_menu_r6_c2.gif
+  ../images/menu/menu_r07_c1.gif -> img/images_menu_menu_r07_c1.gif
+  ../images/menu/menu_r8_c1.gif -> img/images_menu_menu_r8_c1.gif
+  ../images/menu/menu_r8_c2.gif -> img/images_menu_menu_r8_c2.gif
+  ../images/menu/menu_r09_c1.gif -> img/images_menu_menu_r09_c1.gif
+  ../images/menu/menu_r10_c1.gif -> img/images_menu_menu_r10_c1.gif
+  ../images/menu/menu_r10_c2.gif -> img/images_menu_menu_r10_c2.gif
+  ../images/menu/menu_r11_c1.gif -> img/images_menu_menu_r11_c1.gif
+  ../images/menu/menu_r12_c1.gif -> img/images_menu_menu_r12_c1.gif
+  ../images/menu/menu_r12_c2.gif -> img/images_menu_menu_r12_c2.gif
+  ../images/menu/menu_r13_c1.gif -> img/images_menu_menu_r13_c1.gif
+  ../images/menu/menu_r14_c1.gif -> img/images_menu_menu_r14_c1.gif
+  ../images/menu/menu_r14_c2.gif -> img/images_menu_menu_r14_c2.gif
+  ../images/menu/menu_r15_c1.gif -> img/images_menu_menu_r15_c1.gif
+  ../images/menu/menu_r16_c2.gif -> img/images_menu_menu_r16_c2.gif
+  ../images/menu/menu_r17_c1.gif -> img/images_menu_menu_r17_c1.gif
+  ../images/menu/menu_r18_c1.gif -> img/images_menu_menu_r18_c1.gif
+  ../images/menu/menu_r18_c2.gif -> img/images_menu_menu_r18_c2.gif
+  ../images/0602/0602a.gif -> img/images_0602_0602a.gif
+  ../images/0602/0602b.gif -> img/images_0602_0602b.gif
+  ../images/buton/return01.gif -> img/images_buton_return01.gif
+  ../images/buton/home01.gif -> img/images_buton_home01.gif
 
 ===== 0602-1.html（20030820110753（指定の版））=====
 IFSA_____International Funeral Science Association in Japan_____
- | 
- | 
- | 
- | 
  | [画像:IFSA International Funeral Science Association in Japan 日本遺体衛生保全協会]
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
  | [画像:エンバーミングとは・・・]
- | 
- | 
- | 
  | [画像:エンバーミングの歴史]
- | 
- | 
- | 
  | [画像:エンバーミングの法的解釈]
- | 
- | 
- | 
  | [画像:医療従事者の立場から]
- | 
- | 
- | 
  | [画像:エンバーミングの実際]
- | 
- | 
- | 
  | [画像:なぜエンバーミング]
- | 
- | 
- | 
  | [画像:感染症の実態]
- | 
- | 
  | [画像:IFSA組織案内]
- | 
- | 
- | 
  | [画像:お問い合わせ]
- | 
  | [画像:エンバーミングセンター案内]
- | 
 [画像:Return]
- | 
 [画像:Home]
- | 
- | 
- | 
- | 
- | 
- | 
- |
 
 --- リンク ---
   エンバーミングとは・・・ -> 04.html
@@ -147,68 +102,69 @@ IFSA_____International Funeral Science Association in Japan_____
   お問い合わせ -> ../formmail/contact.html
   Return -> 06.html
   Home -> ../index.html
+
+--- 画像地図（クリックできる領域）---
+  北海道 -> 0602-1.html
+  福島 -> 0602-2.html
+  栃木 -> 0602-3.html
+  千葉 -> 0602-4.html
+  東京 -> 0602-5.html
+  埼玉 -> 0602-6.html
+  神奈川 -> 0602-7.html
+  山梨 -> 0602-8.html
+  大阪 -> 0602-9.html
+  広島 -> 0602-10.html
+  熊本 -> 0602-11.html
+  鹿児島 -> 0602-12.html
+
+--- 画像（この版は文字が画像のことがある）---
+  ../images/others/ifsa_top.gif -> img/images_others_ifsa_top.gif
+  ../images/menu/menu_r1_c1.gif -> img/images_menu_menu_r1_c1.gif
+  ../images/menu/menu_r2_c1.gif -> img/images_menu_menu_r2_c1.gif
+  ../images/menu/04bottan.gif -> img/images_menu_04bottan.gif
+  ../images/menu/menu_r03_c1.gif -> img/images_menu_menu_r03_c1.gif
+  ../images/menu/menu_r4_c1.gif -> img/images_menu_menu_r4_c1.gif
+  ../images/menu/menu_r4_c2.gif -> img/images_menu_menu_r4_c2.gif
+  ../images/menu/menu_r05_c1.gif -> img/images_menu_menu_r05_c1.gif
+  ../images/menu/menu_r6_c1.gif -> img/images_menu_menu_r6_c1.gif
+  ../images/menu/menu_r6_c2.gif -> img/images_menu_menu_r6_c2.gif
+  ../images/menu/menu_r07_c1.gif -> img/images_menu_menu_r07_c1.gif
+  ../images/menu/menu_r8_c1.gif -> img/images_menu_menu_r8_c1.gif
+  ../images/menu/menu_r8_c2.gif -> img/images_menu_menu_r8_c2.gif
+  ../images/menu/menu_r09_c1.gif -> img/images_menu_menu_r09_c1.gif
+  ../images/menu/menu_r10_c1.gif -> img/images_menu_menu_r10_c1.gif
+  ../images/menu/menu_r10_c2.gif -> img/images_menu_menu_r10_c2.gif
+  ../images/menu/menu_r11_c1.gif -> img/images_menu_menu_r11_c1.gif
+  ../images/menu/menu_r12_c1.gif -> img/images_menu_menu_r12_c1.gif
+  ../images/menu/menu_r12_c2.gif -> img/images_menu_menu_r12_c2.gif
+  ../images/menu/menu_r13_c1.gif -> img/images_menu_menu_r13_c1.gif
+  ../images/menu/menu_r14_c1.gif -> img/images_menu_menu_r14_c1.gif
+  ../images/menu/menu_r14_c2.gif -> img/images_menu_menu_r14_c2.gif
+  ../images/menu/menu_r15_c1.gif -> img/images_menu_menu_r15_c1.gif
+  ../images/menu/menu_r16_c2.gif -> img/images_menu_menu_r16_c2.gif
+  ../images/menu/menu_r17_c1.gif -> img/images_menu_menu_r17_c1.gif
+  ../images/menu/menu_r18_c1.gif -> img/images_menu_menu_r18_c1.gif
+  ../images/menu/menu_r18_c2.gif -> img/images_menu_menu_r18_c2.gif
+  ../images/0602/0602a.gif -> img/images_0602_0602a.gif
+  ../images/0602/0602-1.gif -> 取得失敗: 20030820110753: HTTP 404 / 2003: HTTP 404
+  ../images/buton/return01.gif -> img/images_buton_return01.gif
+  ../images/buton/home01.gif -> img/images_buton_home01.gif
 
 ===== 0602-2.html（20030820110753（指定の版））=====
 IFSA_____International Funeral Science Association in Japan_____
- | 
- | 
- | 
- | 
  | [画像:IFSA International Funeral Science Association in Japan 日本遺体衛生保全協会]
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
  | [画像:エンバーミングとは・・・]
- | 
- | 
- | 
  | [画像:エンバーミングの歴史]
- | 
- | 
- | 
  | [画像:エンバーミングの法的解釈]
- | 
- | 
- | 
  | [画像:医療従事者の立場から]
- | 
- | 
- | 
  | [画像:エンバーミングの実際]
- | 
- | 
- | 
  | [画像:なぜエンバーミング]
- | 
- | 
- | 
  | [画像:感染症の実態]
- | 
- | 
  | [画像:IFSA組織案内]
- | 
- | 
- | 
  | [画像:お問い合わせ]
- | 
  | [画像:エンバーミングセンター案内]
- | 
 [画像:Return]
- | 
 [画像:Home]
- | 
- | 
- | 
- | 
- | 
- | 
- |
 
 --- リンク ---
   エンバーミングとは・・・ -> 04.html
@@ -222,68 +178,69 @@ IFSA_____International Funeral Science Association in Japan_____
   お問い合わせ -> ../formmail/contact.html
   Return -> 06.html
   Home -> ../index.html
+
+--- 画像地図（クリックできる領域）---
+  北海道 -> 0602-1.html
+  福島 -> 0602-2.html
+  栃木 -> 0602-3.html
+  千葉 -> 0602-4.html
+  東京 -> 0602-5.html
+  埼玉 -> 0602-6.html
+  神奈川 -> 0602-7.html
+  山梨 -> 0602-8.html
+  大阪 -> 0602-9.html
+  広島 -> 0602-10.html
+  熊本 -> 0602-11.html
+  鹿児島 -> 0602-12.html
+
+--- 画像（この版は文字が画像のことがある）---
+  ../images/others/ifsa_top.gif -> img/images_others_ifsa_top.gif
+  ../images/menu/menu_r1_c1.gif -> img/images_menu_menu_r1_c1.gif
+  ../images/menu/menu_r2_c1.gif -> img/images_menu_menu_r2_c1.gif
+  ../images/menu/04bottan.gif -> img/images_menu_04bottan.gif
+  ../images/menu/menu_r03_c1.gif -> img/images_menu_menu_r03_c1.gif
+  ../images/menu/menu_r4_c1.gif -> img/images_menu_menu_r4_c1.gif
+  ../images/menu/menu_r4_c2.gif -> img/images_menu_menu_r4_c2.gif
+  ../images/menu/menu_r05_c1.gif -> img/images_menu_menu_r05_c1.gif
+  ../images/menu/menu_r6_c1.gif -> img/images_menu_menu_r6_c1.gif
+  ../images/menu/menu_r6_c2.gif -> img/images_menu_menu_r6_c2.gif
+  ../images/menu/menu_r07_c1.gif -> img/images_menu_menu_r07_c1.gif
+  ../images/menu/menu_r8_c1.gif -> img/images_menu_menu_r8_c1.gif
+  ../images/menu/menu_r8_c2.gif -> img/images_menu_menu_r8_c2.gif
+  ../images/menu/menu_r09_c1.gif -> img/images_menu_menu_r09_c1.gif
+  ../images/menu/menu_r10_c1.gif -> img/images_menu_menu_r10_c1.gif
+  ../images/menu/menu_r10_c2.gif -> img/images_menu_menu_r10_c2.gif
+  ../images/menu/menu_r11_c1.gif -> img/images_menu_menu_r11_c1.gif
+  ../images/menu/menu_r12_c1.gif -> img/images_menu_menu_r12_c1.gif
+  ../images/menu/menu_r12_c2.gif -> img/images_menu_menu_r12_c2.gif
+  ../images/menu/menu_r13_c1.gif -> img/images_menu_menu_r13_c1.gif
+  ../images/menu/menu_r14_c1.gif -> img/images_menu_menu_r14_c1.gif
+  ../images/menu/menu_r14_c2.gif -> img/images_menu_menu_r14_c2.gif
+  ../images/menu/menu_r15_c1.gif -> img/images_menu_menu_r15_c1.gif
+  ../images/menu/menu_r16_c2.gif -> img/images_menu_menu_r16_c2.gif
+  ../images/menu/menu_r17_c1.gif -> img/images_menu_menu_r17_c1.gif
+  ../images/menu/menu_r18_c1.gif -> img/images_menu_menu_r18_c1.gif
+  ../images/menu/menu_r18_c2.gif -> img/images_menu_menu_r18_c2.gif
+  ../images/0602/0602a.gif -> img/images_0602_0602a.gif
+  ../images/0602/0602-2.gif -> 取得失敗: 20030820110753: HTTP 404 / 2003: HTTP 404
+  ../images/buton/return01.gif -> img/images_buton_return01.gif
+  ../images/buton/home01.gif -> img/images_buton_home01.gif
 
 ===== 0602-3.html（20030820110753（指定の版））=====
 IFSA_____International Funeral Science Association in Japan_____
- | 
- | 
- | 
- | 
  | [画像:IFSA International Funeral Science Association in Japan 日本遺体衛生保全協会]
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
  | [画像:エンバーミングとは・・・]
- | 
- | 
- | 
  | [画像:エンバーミングの歴史]
- | 
- | 
- | 
  | [画像:エンバーミングの法的解釈]
- | 
- | 
- | 
  | [画像:医療従事者の立場から]
- | 
- | 
- | 
  | [画像:エンバーミングの実際]
- | 
- | 
- | 
  | [画像:なぜエンバーミング]
- | 
- | 
- | 
  | [画像:感染症の実態]
- | 
- | 
  | [画像:IFSA組織案内]
- | 
- | 
- | 
  | [画像:お問い合わせ]
- | 
  | [画像:エンバーミングセンター案内]
- | 
 [画像:Return]
- | 
 [画像:Home]
- | 
- | 
- | 
- | 
- | 
- | 
- |
 
 --- リンク ---
   エンバーミングとは・・・ -> 04.html
@@ -297,68 +254,69 @@ IFSA_____International Funeral Science Association in Japan_____
   お問い合わせ -> ../formmail/contact.html
   Return -> 06.html
   Home -> ../index.html
+
+--- 画像地図（クリックできる領域）---
+  北海道 -> 0602-1.html
+  福島 -> 0602-2.html
+  栃木 -> 0602-3.html
+  千葉 -> 0602-4.html
+  東京 -> 0602-5.html
+  埼玉 -> 0602-6.html
+  神奈川 -> 0602-7.html
+  山梨 -> 0602-8.html
+  大阪 -> 0602-9.html
+  広島 -> 0602-10.html
+  熊本 -> 0602-11.html
+  鹿児島 -> 0602-12.html
+
+--- 画像（この版は文字が画像のことがある）---
+  ../images/others/ifsa_top.gif -> img/images_others_ifsa_top.gif
+  ../images/menu/menu_r1_c1.gif -> img/images_menu_menu_r1_c1.gif
+  ../images/menu/menu_r2_c1.gif -> img/images_menu_menu_r2_c1.gif
+  ../images/menu/04bottan.gif -> img/images_menu_04bottan.gif
+  ../images/menu/menu_r03_c1.gif -> img/images_menu_menu_r03_c1.gif
+  ../images/menu/menu_r4_c1.gif -> img/images_menu_menu_r4_c1.gif
+  ../images/menu/menu_r4_c2.gif -> img/images_menu_menu_r4_c2.gif
+  ../images/menu/menu_r05_c1.gif -> img/images_menu_menu_r05_c1.gif
+  ../images/menu/menu_r6_c1.gif -> img/images_menu_menu_r6_c1.gif
+  ../images/menu/menu_r6_c2.gif -> img/images_menu_menu_r6_c2.gif
+  ../images/menu/menu_r07_c1.gif -> img/images_menu_menu_r07_c1.gif
+  ../images/menu/menu_r8_c1.gif -> img/images_menu_menu_r8_c1.gif
+  ../images/menu/menu_r8_c2.gif -> img/images_menu_menu_r8_c2.gif
+  ../images/menu/menu_r09_c1.gif -> img/images_menu_menu_r09_c1.gif
+  ../images/menu/menu_r10_c1.gif -> img/images_menu_menu_r10_c1.gif
+  ../images/menu/menu_r10_c2.gif -> img/images_menu_menu_r10_c2.gif
+  ../images/menu/menu_r11_c1.gif -> img/images_menu_menu_r11_c1.gif
+  ../images/menu/menu_r12_c1.gif -> img/images_menu_menu_r12_c1.gif
+  ../images/menu/menu_r12_c2.gif -> img/images_menu_menu_r12_c2.gif
+  ../images/menu/menu_r13_c1.gif -> img/images_menu_menu_r13_c1.gif
+  ../images/menu/menu_r14_c1.gif -> img/images_menu_menu_r14_c1.gif
+  ../images/menu/menu_r14_c2.gif -> img/images_menu_menu_r14_c2.gif
+  ../images/menu/menu_r15_c1.gif -> img/images_menu_menu_r15_c1.gif
+  ../images/menu/menu_r16_c2.gif -> img/images_menu_menu_r16_c2.gif
+  ../images/menu/menu_r17_c1.gif -> img/images_menu_menu_r17_c1.gif
+  ../images/menu/menu_r18_c1.gif -> img/images_menu_menu_r18_c1.gif
+  ../images/menu/menu_r18_c2.gif -> img/images_menu_menu_r18_c2.gif
+  ../images/0602/0602a.gif -> img/images_0602_0602a.gif
+  ../images/0602/0602-3.gif -> 取得失敗: 20030820110753: HTTP 404 / 2003: HTTP 404
+  ../images/buton/return01.gif -> img/images_buton_return01.gif
+  ../images/buton/home01.gif -> img/images_buton_home01.gif
 
 ===== 0602-4.html（20030820110753（指定の版））=====
 IFSA_____International Funeral Science Association in Japan_____
- | 
- | 
- | 
- | 
  | [画像:IFSA International Funeral Science Association in Japan 日本遺体衛生保全協会]
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
  | [画像:エンバーミングとは・・・]
- | 
- | 
- | 
  | [画像:エンバーミングの歴史]
- | 
- | 
- | 
  | [画像:エンバーミングの法的解釈]
- | 
- | 
- | 
  | [画像:医療従事者の立場から]
- | 
- | 
- | 
  | [画像:エンバーミングの実際]
- | 
- | 
- | 
  | [画像:なぜエンバーミング]
- | 
- | 
- | 
  | [画像:感染症の実態]
- | 
- | 
  | [画像:IFSA組織案内]
- | 
- | 
- | 
  | [画像:お問い合わせ]
- | 
  | [画像:エンバーミングセンター案内]
- | 
 [画像:Return]
- | 
 [画像:Home]
- | 
- | 
- | 
- | 
- | 
- | 
- |
 
 --- リンク ---
   エンバーミングとは・・・ -> 04.html
@@ -372,68 +330,69 @@ IFSA_____International Funeral Science Association in Japan_____
   お問い合わせ -> ../formmail/contact.html
   Return -> 06.html
   Home -> ../index.html
+
+--- 画像地図（クリックできる領域）---
+  北海道 -> 0602-1.html
+  福島 -> 0602-2.html
+  栃木 -> 0602-3.html
+  千葉 -> 0602-4.html
+  東京 -> 0602-5.html
+  埼玉 -> 0602-6.html
+  神奈川 -> 0602-7.html
+  山梨 -> 0602-8.html
+  大阪 -> 0602-9.html
+  広島 -> 0602-10.html
+  熊本 -> 0602-11.html
+  鹿児島 -> 0602-12.html
+
+--- 画像（この版は文字が画像のことがある）---
+  ../images/others/ifsa_top.gif -> img/images_others_ifsa_top.gif
+  ../images/menu/menu_r1_c1.gif -> img/images_menu_menu_r1_c1.gif
+  ../images/menu/menu_r2_c1.gif -> img/images_menu_menu_r2_c1.gif
+  ../images/menu/04bottan.gif -> img/images_menu_04bottan.gif
+  ../images/menu/menu_r03_c1.gif -> img/images_menu_menu_r03_c1.gif
+  ../images/menu/menu_r4_c1.gif -> img/images_menu_menu_r4_c1.gif
+  ../images/menu/menu_r4_c2.gif -> img/images_menu_menu_r4_c2.gif
+  ../images/menu/menu_r05_c1.gif -> img/images_menu_menu_r05_c1.gif
+  ../images/menu/menu_r6_c1.gif -> img/images_menu_menu_r6_c1.gif
+  ../images/menu/menu_r6_c2.gif -> img/images_menu_menu_r6_c2.gif
+  ../images/menu/menu_r07_c1.gif -> img/images_menu_menu_r07_c1.gif
+  ../images/menu/menu_r8_c1.gif -> img/images_menu_menu_r8_c1.gif
+  ../images/menu/menu_r8_c2.gif -> img/images_menu_menu_r8_c2.gif
+  ../images/menu/menu_r09_c1.gif -> img/images_menu_menu_r09_c1.gif
+  ../images/menu/menu_r10_c1.gif -> img/images_menu_menu_r10_c1.gif
+  ../images/menu/menu_r10_c2.gif -> img/images_menu_menu_r10_c2.gif
+  ../images/menu/menu_r11_c1.gif -> img/images_menu_menu_r11_c1.gif
+  ../images/menu/menu_r12_c1.gif -> img/images_menu_menu_r12_c1.gif
+  ../images/menu/menu_r12_c2.gif -> img/images_menu_menu_r12_c2.gif
+  ../images/menu/menu_r13_c1.gif -> img/images_menu_menu_r13_c1.gif
+  ../images/menu/menu_r14_c1.gif -> img/images_menu_menu_r14_c1.gif
+  ../images/menu/menu_r14_c2.gif -> img/images_menu_menu_r14_c2.gif
+  ../images/menu/menu_r15_c1.gif -> img/images_menu_menu_r15_c1.gif
+  ../images/menu/menu_r16_c2.gif -> img/images_menu_menu_r16_c2.gif
+  ../images/menu/menu_r17_c1.gif -> img/images_menu_menu_r17_c1.gif
+  ../images/menu/menu_r18_c1.gif -> img/images_menu_menu_r18_c1.gif
+  ../images/menu/menu_r18_c2.gif -> img/images_menu_menu_r18_c2.gif
+  ../images/0602/0602a.gif -> img/images_0602_0602a.gif
+  ../images/0602/0602-4.gif -> img/images_0602_0602-4.gif
+  ../images/buton/return01.gif -> img/images_buton_return01.gif
+  ../images/buton/home01.gif -> img/images_buton_home01.gif
 
 ===== 0602-5.html（20030820110753（指定の版））=====
 IFSA_____International Funeral Science Association in Japan_____
- | 
- | 
- | 
- | 
  | [画像:IFSA International Funeral Science Association in Japan 日本遺体衛生保全協会]
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
  | [画像:エンバーミングとは・・・]
- | 
- | 
- | 
  | [画像:エンバーミングの歴史]
- | 
- | 
- | 
  | [画像:エンバーミングの法的解釈]
- | 
- | 
- | 
  | [画像:医療従事者の立場から]
- | 
- | 
- | 
  | [画像:エンバーミングの実際]
- | 
- | 
- | 
  | [画像:なぜエンバーミング]
- | 
- | 
- | 
  | [画像:感染症の実態]
- | 
- | 
  | [画像:IFSA組織案内]
- | 
- | 
- | 
  | [画像:お問い合わせ]
- | 
  | [画像:エンバーミングセンター案内]
- | 
 [画像:Return]
- | 
 [画像:Home]
- | 
- | 
- | 
- | 
- | 
- | 
- |
 
 --- リンク ---
   エンバーミングとは・・・ -> 04.html
@@ -447,68 +406,69 @@ IFSA_____International Funeral Science Association in Japan_____
   お問い合わせ -> ../formmail/contact.html
   Return -> 06.html
   Home -> ../index.html
+
+--- 画像地図（クリックできる領域）---
+  北海道 -> 0602-1.html
+  福島 -> 0602-2.html
+  栃木 -> 0602-3.html
+  千葉 -> 0602-4.html
+  東京 -> 0602-5.html
+  埼玉 -> 0602-6.html
+  神奈川 -> 0602-7.html
+  山梨 -> 0602-8.html
+  大阪 -> 0602-9.html
+  広島 -> 0602-10.html
+  熊本 -> 0602-11.html
+  鹿児島 -> 0602-12.html
+
+--- 画像（この版は文字が画像のことがある）---
+  ../images/others/ifsa_top.gif -> img/images_others_ifsa_top.gif
+  ../images/menu/menu_r1_c1.gif -> img/images_menu_menu_r1_c1.gif
+  ../images/menu/menu_r2_c1.gif -> img/images_menu_menu_r2_c1.gif
+  ../images/menu/04bottan.gif -> img/images_menu_04bottan.gif
+  ../images/menu/menu_r03_c1.gif -> img/images_menu_menu_r03_c1.gif
+  ../images/menu/menu_r4_c1.gif -> img/images_menu_menu_r4_c1.gif
+  ../images/menu/menu_r4_c2.gif -> img/images_menu_menu_r4_c2.gif
+  ../images/menu/menu_r05_c1.gif -> img/images_menu_menu_r05_c1.gif
+  ../images/menu/menu_r6_c1.gif -> img/images_menu_menu_r6_c1.gif
+  ../images/menu/menu_r6_c2.gif -> img/images_menu_menu_r6_c2.gif
+  ../images/menu/menu_r07_c1.gif -> img/images_menu_menu_r07_c1.gif
+  ../images/menu/menu_r8_c1.gif -> img/images_menu_menu_r8_c1.gif
+  ../images/menu/menu_r8_c2.gif -> img/images_menu_menu_r8_c2.gif
+  ../images/menu/menu_r09_c1.gif -> img/images_menu_menu_r09_c1.gif
+  ../images/menu/menu_r10_c1.gif -> img/images_menu_menu_r10_c1.gif
+  ../images/menu/menu_r10_c2.gif -> img/images_menu_menu_r10_c2.gif
+  ../images/menu/menu_r11_c1.gif -> img/images_menu_menu_r11_c1.gif
+  ../images/menu/menu_r12_c1.gif -> img/images_menu_menu_r12_c1.gif
+  ../images/menu/menu_r12_c2.gif -> img/images_menu_menu_r12_c2.gif
+  ../images/menu/menu_r13_c1.gif -> img/images_menu_menu_r13_c1.gif
+  ../images/menu/menu_r14_c1.gif -> img/images_menu_menu_r14_c1.gif
+  ../images/menu/menu_r14_c2.gif -> img/images_menu_menu_r14_c2.gif
+  ../images/menu/menu_r15_c1.gif -> img/images_menu_menu_r15_c1.gif
+  ../images/menu/menu_r16_c2.gif -> img/images_menu_menu_r16_c2.gif
+  ../images/menu/menu_r17_c1.gif -> img/images_menu_menu_r17_c1.gif
+  ../images/menu/menu_r18_c1.gif -> img/images_menu_menu_r18_c1.gif
+  ../images/menu/menu_r18_c2.gif -> img/images_menu_menu_r18_c2.gif
+  ../images/0602/0602a.gif -> img/images_0602_0602a.gif
+  ../images/0602/0602-5.gif -> img/images_0602_0602-5.gif
+  ../images/buton/return01.gif -> img/images_buton_return01.gif
+  ../images/buton/home01.gif -> img/images_buton_home01.gif
 
 ===== 0602-6.html（20030820110753（指定の版））=====
 IFSA_____International Funeral Science Association in Japan_____
- | 
- | 
- | 
- | 
  | [画像:IFSA International Funeral Science Association in Japan 日本遺体衛生保全協会]
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
  | [画像:エンバーミングとは・・・]
- | 
- | 
- | 
  | [画像:エンバーミングの歴史]
- | 
- | 
- | 
  | [画像:エンバーミングの法的解釈]
- | 
- | 
- | 
  | [画像:医療従事者の立場から]
- | 
- | 
- | 
  | [画像:エンバーミングの実際]
- | 
- | 
- | 
  | [画像:なぜエンバーミング]
- | 
- | 
- | 
  | [画像:感染症の実態]
- | 
- | 
  | [画像:IFSA組織案内]
- | 
- | 
- | 
  | [画像:お問い合わせ]
- | 
  | [画像:エンバーミングセンター案内]
- | 
 [画像:Return]
- | 
 [画像:Home]
- | 
- | 
- | 
- | 
- | 
- | 
- |
 
 --- リンク ---
   エンバーミングとは・・・ -> 04.html
@@ -522,68 +482,69 @@ IFSA_____International Funeral Science Association in Japan_____
   お問い合わせ -> ../formmail/contact.html
   Return -> 06.html
   Home -> ../index.html
+
+--- 画像地図（クリックできる領域）---
+  北海道 -> 0602-1.html
+  福島 -> 0602-2.html
+  栃木 -> 0602-3.html
+  千葉 -> 0602-4.html
+  東京 -> 0602-5.html
+  埼玉 -> 0602-6.html
+  神奈川 -> 0602-7.html
+  山梨 -> 0602-8.html
+  大阪 -> 0602-9.html
+  広島 -> 0602-10.html
+  熊本 -> 0602-11.html
+  鹿児島 -> 0602-12.html
+
+--- 画像（この版は文字が画像のことがある）---
+  ../images/others/ifsa_top.gif -> img/images_others_ifsa_top.gif
+  ../images/menu/menu_r1_c1.gif -> img/images_menu_menu_r1_c1.gif
+  ../images/menu/menu_r2_c1.gif -> img/images_menu_menu_r2_c1.gif
+  ../images/menu/04bottan.gif -> img/images_menu_04bottan.gif
+  ../images/menu/menu_r03_c1.gif -> img/images_menu_menu_r03_c1.gif
+  ../images/menu/menu_r4_c1.gif -> img/images_menu_menu_r4_c1.gif
+  ../images/menu/menu_r4_c2.gif -> img/images_menu_menu_r4_c2.gif
+  ../images/menu/menu_r05_c1.gif -> img/images_menu_menu_r05_c1.gif
+  ../images/menu/menu_r6_c1.gif -> img/images_menu_menu_r6_c1.gif
+  ../images/menu/menu_r6_c2.gif -> img/images_menu_menu_r6_c2.gif
+  ../images/menu/menu_r07_c1.gif -> img/images_menu_menu_r07_c1.gif
+  ../images/menu/menu_r8_c1.gif -> img/images_menu_menu_r8_c1.gif
+  ../images/menu/menu_r8_c2.gif -> img/images_menu_menu_r8_c2.gif
+  ../images/menu/menu_r09_c1.gif -> img/images_menu_menu_r09_c1.gif
+  ../images/menu/menu_r10_c1.gif -> img/images_menu_menu_r10_c1.gif
+  ../images/menu/menu_r10_c2.gif -> img/images_menu_menu_r10_c2.gif
+  ../images/menu/menu_r11_c1.gif -> img/images_menu_menu_r11_c1.gif
+  ../images/menu/menu_r12_c1.gif -> img/images_menu_menu_r12_c1.gif
+  ../images/menu/menu_r12_c2.gif -> img/images_menu_menu_r12_c2.gif
+  ../images/menu/menu_r13_c1.gif -> img/images_menu_menu_r13_c1.gif
+  ../images/menu/menu_r14_c1.gif -> img/images_menu_menu_r14_c1.gif
+  ../images/menu/menu_r14_c2.gif -> img/images_menu_menu_r14_c2.gif
+  ../images/menu/menu_r15_c1.gif -> img/images_menu_menu_r15_c1.gif
+  ../images/menu/menu_r16_c2.gif -> img/images_menu_menu_r16_c2.gif
+  ../images/menu/menu_r17_c1.gif -> img/images_menu_menu_r17_c1.gif
+  ../images/menu/menu_r18_c1.gif -> img/images_menu_menu_r18_c1.gif
+  ../images/menu/menu_r18_c2.gif -> img/images_menu_menu_r18_c2.gif
+  ../images/0602/0602a.gif -> img/images_0602_0602a.gif
+  ../images/0602/0602-6.gif -> img/images_0602_0602-6.gif
+  ../images/buton/return01.gif -> img/images_buton_return01.gif
+  ../images/buton/home01.gif -> img/images_buton_home01.gif
 
 ===== 0602-7.html（20030820110753（指定の版））=====
 IFSA_____International Funeral Science Association in Japan_____
- | 
- | 
- | 
- | 
  | [画像:IFSA International Funeral Science Association in Japan 日本遺体衛生保全協会]
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
  | [画像:エンバーミングとは・・・]
- | 
- | 
- | 
  | [画像:エンバーミングの歴史]
- | 
- | 
- | 
  | [画像:エンバーミングの法的解釈]
- | 
- | 
- | 
  | [画像:医療従事者の立場から]
- | 
- | 
- | 
  | [画像:エンバーミングの実際]
- | 
- | 
- | 
  | [画像:なぜエンバーミング]
- | 
- | 
- | 
  | [画像:感染症の実態]
- | 
- | 
  | [画像:IFSA組織案内]
- | 
- | 
- | 
  | [画像:お問い合わせ]
- | 
  | [画像:エンバーミングセンター案内]
- | 
 [画像:Return]
- | 
 [画像:Home]
- | 
- | 
- | 
- | 
- | 
- | 
- |
 
 --- リンク ---
   エンバーミングとは・・・ -> 04.html
@@ -597,68 +558,70 @@ IFSA_____International Funeral Science Association in Japan_____
   お問い合わせ -> ../formmail/contact.html
   Return -> 06.html
   Home -> ../index.html
+
+--- 画像地図（クリックできる領域）---
+  北海道 -> 0602-1.html
+  福島 -> 0602-2.html
+  栃木 -> 0602-3.html
+  千葉 -> 0602-4.html
+  東京 -> 0602-5.html
+  埼玉 -> 0602-6.html
+  神奈川 -> 0602-7.html
+  山梨 -> 0602-8.html
+  大阪 -> 0602-9.html
+  広島 -> 0602-10.html
+  熊本 -> 0602-11.html
+  鹿児島 -> 0602-12.html
+  (ラベルなし) -> http://www.yms-corp.co.jp
+
+--- 画像（この版は文字が画像のことがある）---
+  ../images/others/ifsa_top.gif -> img/images_others_ifsa_top.gif
+  ../images/menu/menu_r1_c1.gif -> img/images_menu_menu_r1_c1.gif
+  ../images/menu/menu_r2_c1.gif -> img/images_menu_menu_r2_c1.gif
+  ../images/menu/04bottan.gif -> img/images_menu_04bottan.gif
+  ../images/menu/menu_r03_c1.gif -> img/images_menu_menu_r03_c1.gif
+  ../images/menu/menu_r4_c1.gif -> img/images_menu_menu_r4_c1.gif
+  ../images/menu/menu_r4_c2.gif -> img/images_menu_menu_r4_c2.gif
+  ../images/menu/menu_r05_c1.gif -> img/images_menu_menu_r05_c1.gif
+  ../images/menu/menu_r6_c1.gif -> img/images_menu_menu_r6_c1.gif
+  ../images/menu/menu_r6_c2.gif -> img/images_menu_menu_r6_c2.gif
+  ../images/menu/menu_r07_c1.gif -> img/images_menu_menu_r07_c1.gif
+  ../images/menu/menu_r8_c1.gif -> img/images_menu_menu_r8_c1.gif
+  ../images/menu/menu_r8_c2.gif -> img/images_menu_menu_r8_c2.gif
+  ../images/menu/menu_r09_c1.gif -> img/images_menu_menu_r09_c1.gif
+  ../images/menu/menu_r10_c1.gif -> img/images_menu_menu_r10_c1.gif
+  ../images/menu/menu_r10_c2.gif -> img/images_menu_menu_r10_c2.gif
+  ../images/menu/menu_r11_c1.gif -> img/images_menu_menu_r11_c1.gif
+  ../images/menu/menu_r12_c1.gif -> img/images_menu_menu_r12_c1.gif
+  ../images/menu/menu_r12_c2.gif -> img/images_menu_menu_r12_c2.gif
+  ../images/menu/menu_r13_c1.gif -> img/images_menu_menu_r13_c1.gif
+  ../images/menu/menu_r14_c1.gif -> img/images_menu_menu_r14_c1.gif
+  ../images/menu/menu_r14_c2.gif -> img/images_menu_menu_r14_c2.gif
+  ../images/menu/menu_r15_c1.gif -> img/images_menu_menu_r15_c1.gif
+  ../images/menu/menu_r16_c2.gif -> img/images_menu_menu_r16_c2.gif
+  ../images/menu/menu_r17_c1.gif -> img/images_menu_menu_r17_c1.gif
+  ../images/menu/menu_r18_c1.gif -> img/images_menu_menu_r18_c1.gif
+  ../images/menu/menu_r18_c2.gif -> img/images_menu_menu_r18_c2.gif
+  ../images/0602/0602a.gif -> img/images_0602_0602a.gif
+  ../images/0602/0602-7.gif -> img/images_0602_0602-7.gif
+  ../images/buton/return01.gif -> img/images_buton_return01.gif
+  ../images/buton/home01.gif -> img/images_buton_home01.gif
 
 ===== 0602-8.html（20030820110753（指定の版））=====
 IFSA_____International Funeral Science Association in Japan_____
- | 
- | 
- | 
- | 
  | [画像:IFSA International Funeral Science Association in Japan 日本遺体衛生保全協会]
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
  | [画像:エンバーミングとは・・・]
- | 
- | 
- | 
  | [画像:エンバーミングの歴史]
- | 
- | 
- | 
  | [画像:エンバーミングの法的解釈]
- | 
- | 
- | 
  | [画像:医療従事者の立場から]
- | 
- | 
- | 
  | [画像:エンバーミングの実際]
- | 
- | 
- | 
  | [画像:なぜエンバーミング]
- | 
- | 
- | 
  | [画像:感染症の実態]
- | 
- | 
  | [画像:IFSA組織案内]
- | 
- | 
- | 
  | [画像:お問い合わせ]
- | 
  | [画像:エンバーミングセンター案内]
- | 
 [画像:Return]
- | 
 [画像:Home]
- | 
- | 
- | 
- | 
- | 
- | 
- |
 
 --- リンク ---
   エンバーミングとは・・・ -> 04.html
@@ -672,68 +635,70 @@ IFSA_____International Funeral Science Association in Japan_____
   お問い合わせ -> ../formmail/contact.html
   Return -> 06.html
   Home -> ../index.html
+
+--- 画像地図（クリックできる領域）---
+  北海道 -> 0602-1.html
+  福島 -> 0602-2.html
+  栃木 -> 0602-3.html
+  千葉 -> 0602-4.html
+  東京 -> 0602-5.html
+  埼玉 -> 0602-6.html
+  神奈川 -> 0602-7.html
+  山梨 -> 0602-8.html
+  大阪 -> 0602-9.html
+  広島 -> 0602-10.html
+  熊本 -> 0602-11.html
+  鹿児島 -> 0602-12.html
+  (ラベルなし) -> http://www.kankonsosai.jp
+
+--- 画像（この版は文字が画像のことがある）---
+  ../images/others/ifsa_top.gif -> img/images_others_ifsa_top.gif
+  ../images/menu/menu_r1_c1.gif -> img/images_menu_menu_r1_c1.gif
+  ../images/menu/menu_r2_c1.gif -> img/images_menu_menu_r2_c1.gif
+  ../images/menu/04bottan.gif -> img/images_menu_04bottan.gif
+  ../images/menu/menu_r03_c1.gif -> img/images_menu_menu_r03_c1.gif
+  ../images/menu/menu_r4_c1.gif -> img/images_menu_menu_r4_c1.gif
+  ../images/menu/menu_r4_c2.gif -> img/images_menu_menu_r4_c2.gif
+  ../images/menu/menu_r05_c1.gif -> img/images_menu_menu_r05_c1.gif
+  ../images/menu/menu_r6_c1.gif -> img/images_menu_menu_r6_c1.gif
+  ../images/menu/menu_r6_c2.gif -> img/images_menu_menu_r6_c2.gif
+  ../images/menu/menu_r07_c1.gif -> img/images_menu_menu_r07_c1.gif
+  ../images/menu/menu_r8_c1.gif -> img/images_menu_menu_r8_c1.gif
+  ../images/menu/menu_r8_c2.gif -> img/images_menu_menu_r8_c2.gif
+  ../images/menu/menu_r09_c1.gif -> img/images_menu_menu_r09_c1.gif
+  ../images/menu/menu_r10_c1.gif -> img/images_menu_menu_r10_c1.gif
+  ../images/menu/menu_r10_c2.gif -> img/images_menu_menu_r10_c2.gif
+  ../images/menu/menu_r11_c1.gif -> img/images_menu_menu_r11_c1.gif
+  ../images/menu/menu_r12_c1.gif -> img/images_menu_menu_r12_c1.gif
+  ../images/menu/menu_r12_c2.gif -> img/images_menu_menu_r12_c2.gif
+  ../images/menu/menu_r13_c1.gif -> img/images_menu_menu_r13_c1.gif
+  ../images/menu/menu_r14_c1.gif -> img/images_menu_menu_r14_c1.gif
+  ../images/menu/menu_r14_c2.gif -> img/images_menu_menu_r14_c2.gif
+  ../images/menu/menu_r15_c1.gif -> img/images_menu_menu_r15_c1.gif
+  ../images/menu/menu_r16_c2.gif -> img/images_menu_menu_r16_c2.gif
+  ../images/menu/menu_r17_c1.gif -> img/images_menu_menu_r17_c1.gif
+  ../images/menu/menu_r18_c1.gif -> img/images_menu_menu_r18_c1.gif
+  ../images/menu/menu_r18_c2.gif -> img/images_menu_menu_r18_c2.gif
+  ../images/0602/0602a.gif -> img/images_0602_0602a.gif
+  ../images/0602/0602-8.gif -> img/images_0602_0602-8.gif
+  ../images/buton/return01.gif -> img/images_buton_return01.gif
+  ../images/buton/home01.gif -> img/images_buton_home01.gif
 
 ===== 0602-9.html（20030820110753（指定の版））=====
 IFSA_____International Funeral Science Association in Japan_____
- | 
- | 
- | 
- | 
  | [画像:IFSA International Funeral Science Association in Japan 日本遺体衛生保全協会]
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
  | [画像:エンバーミングとは・・・]
- | 
- | 
- | 
  | [画像:エンバーミングの歴史]
- | 
- | 
- | 
  | [画像:エンバーミングの法的解釈]
- | 
- | 
- | 
  | [画像:医療従事者の立場から]
- | 
- | 
- | 
  | [画像:エンバーミングの実際]
- | 
- | 
- | 
  | [画像:なぜエンバーミング]
- | 
- | 
- | 
  | [画像:感染症の実態]
- | 
- | 
  | [画像:IFSA組織案内]
- | 
- | 
- | 
  | [画像:お問い合わせ]
- | 
  | [画像:エンバーミングセンター案内]
- | 
 [画像:Return]
- | 
 [画像:Home]
- | 
- | 
- | 
- | 
- | 
- | 
- |
 
 --- リンク ---
   エンバーミングとは・・・ -> 04.html
@@ -747,68 +712,70 @@ IFSA_____International Funeral Science Association in Japan_____
   お問い合わせ -> ../formmail/contact.html
   Return -> 06.html
   Home -> ../index.html
+
+--- 画像地図（クリックできる領域）---
+  北海道 -> 0602-1.html
+  福島 -> 0602-2.html
+  栃木 -> 0602-3.html
+  千葉 -> 0602-4.html
+  東京 -> 0602-5.html
+  埼玉 -> 0602-6.html
+  神奈川 -> 0602-7.html
+  山梨 -> 0602-8.html
+  大阪 -> 0602-9.html
+  広島 -> 0602-10.html
+  熊本 -> 0602-11.html
+  鹿児島 -> 0602-12.html
+  公益社 -> http://www.koekisha.co.jp/
+
+--- 画像（この版は文字が画像のことがある）---
+  ../images/others/ifsa_top.gif -> img/images_others_ifsa_top.gif
+  ../images/menu/menu_r1_c1.gif -> img/images_menu_menu_r1_c1.gif
+  ../images/menu/menu_r2_c1.gif -> img/images_menu_menu_r2_c1.gif
+  ../images/menu/04bottan.gif -> img/images_menu_04bottan.gif
+  ../images/menu/menu_r03_c1.gif -> img/images_menu_menu_r03_c1.gif
+  ../images/menu/menu_r4_c1.gif -> img/images_menu_menu_r4_c1.gif
+  ../images/menu/menu_r4_c2.gif -> img/images_menu_menu_r4_c2.gif
+  ../images/menu/menu_r05_c1.gif -> img/images_menu_menu_r05_c1.gif
+  ../images/menu/menu_r6_c1.gif -> img/images_menu_menu_r6_c1.gif
+  ../images/menu/menu_r6_c2.gif -> img/images_menu_menu_r6_c2.gif
+  ../images/menu/menu_r07_c1.gif -> img/images_menu_menu_r07_c1.gif
+  ../images/menu/menu_r8_c1.gif -> img/images_menu_menu_r8_c1.gif
+  ../images/menu/menu_r8_c2.gif -> img/images_menu_menu_r8_c2.gif
+  ../images/menu/menu_r09_c1.gif -> img/images_menu_menu_r09_c1.gif
+  ../images/menu/menu_r10_c1.gif -> img/images_menu_menu_r10_c1.gif
+  ../images/menu/menu_r10_c2.gif -> img/images_menu_menu_r10_c2.gif
+  ../images/menu/menu_r11_c1.gif -> img/images_menu_menu_r11_c1.gif
+  ../images/menu/menu_r12_c1.gif -> img/images_menu_menu_r12_c1.gif
+  ../images/menu/menu_r12_c2.gif -> img/images_menu_menu_r12_c2.gif
+  ../images/menu/menu_r13_c1.gif -> img/images_menu_menu_r13_c1.gif
+  ../images/menu/menu_r14_c1.gif -> img/images_menu_menu_r14_c1.gif
+  ../images/menu/menu_r14_c2.gif -> img/images_menu_menu_r14_c2.gif
+  ../images/menu/menu_r15_c1.gif -> img/images_menu_menu_r15_c1.gif
+  ../images/menu/menu_r16_c2.gif -> img/images_menu_menu_r16_c2.gif
+  ../images/menu/menu_r17_c1.gif -> img/images_menu_menu_r17_c1.gif
+  ../images/menu/menu_r18_c1.gif -> img/images_menu_menu_r18_c1.gif
+  ../images/menu/menu_r18_c2.gif -> img/images_menu_menu_r18_c2.gif
+  ../images/0602/0602a.gif -> img/images_0602_0602a.gif
+  ../images/0602/0602-9.gif -> 取得失敗: 20030820110753: HTTP 404 / 2003: HTTP 404
+  ../images/buton/return01.gif -> img/images_buton_return01.gif
+  ../images/buton/home01.gif -> img/images_buton_home01.gif
 
 ===== 0602-10.html（20030820110753（指定の版））=====
 IFSA_____International Funeral Science Association in Japan_____
- | 
- | 
- | 
- | 
  | [画像:IFSA International Funeral Science Association in Japan 日本遺体衛生保全協会]
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
  | [画像:エンバーミングとは・・・]
- | 
- | 
- | 
  | [画像:エンバーミングの歴史]
- | 
- | 
- | 
  | [画像:エンバーミングの法的解釈]
- | 
- | 
- | 
  | [画像:医療従事者の立場から]
- | 
- | 
- | 
  | [画像:エンバーミングの実際]
- | 
- | 
- | 
  | [画像:なぜエンバーミング]
- | 
- | 
- | 
  | [画像:感染症の実態]
- | 
- | 
  | [画像:IFSA組織案内]
- | 
- | 
- | 
  | [画像:お問い合わせ]
- | 
  | [画像:エンバーミングセンター案内]
- | 
 [画像:Return]
- | 
 [画像:Home]
- | 
- | 
- | 
- | 
- | 
- | 
- |
 
 --- リンク ---
   エンバーミングとは・・・ -> 04.html
@@ -822,68 +789,69 @@ IFSA_____International Funeral Science Association in Japan_____
   お問い合わせ -> ../formmail/contact.html
   Return -> 06.html
   Home -> ../index.html
+
+--- 画像地図（クリックできる領域）---
+  北海道 -> 0602-1.html
+  福島 -> 0602-2.html
+  栃木 -> 0602-3.html
+  千葉 -> 0602-4.html
+  東京 -> 0602-5.html
+  埼玉 -> 0602-6.html
+  神奈川 -> 0602-7.html
+  山梨 -> 0602-8.html
+  大阪 -> 0602-9.html
+  広島 -> 0602-10.html
+  熊本 -> 0602-11.html
+  鹿児島 -> 0602-12.html
+
+--- 画像（この版は文字が画像のことがある）---
+  ../images/others/ifsa_top.gif -> img/images_others_ifsa_top.gif
+  ../images/menu/menu_r1_c1.gif -> img/images_menu_menu_r1_c1.gif
+  ../images/menu/menu_r2_c1.gif -> img/images_menu_menu_r2_c1.gif
+  ../images/menu/04bottan.gif -> img/images_menu_04bottan.gif
+  ../images/menu/menu_r03_c1.gif -> img/images_menu_menu_r03_c1.gif
+  ../images/menu/menu_r4_c1.gif -> img/images_menu_menu_r4_c1.gif
+  ../images/menu/menu_r4_c2.gif -> img/images_menu_menu_r4_c2.gif
+  ../images/menu/menu_r05_c1.gif -> img/images_menu_menu_r05_c1.gif
+  ../images/menu/menu_r6_c1.gif -> img/images_menu_menu_r6_c1.gif
+  ../images/menu/menu_r6_c2.gif -> img/images_menu_menu_r6_c2.gif
+  ../images/menu/menu_r07_c1.gif -> img/images_menu_menu_r07_c1.gif
+  ../images/menu/menu_r8_c1.gif -> img/images_menu_menu_r8_c1.gif
+  ../images/menu/menu_r8_c2.gif -> img/images_menu_menu_r8_c2.gif
+  ../images/menu/menu_r09_c1.gif -> img/images_menu_menu_r09_c1.gif
+  ../images/menu/menu_r10_c1.gif -> img/images_menu_menu_r10_c1.gif
+  ../images/menu/menu_r10_c2.gif -> img/images_menu_menu_r10_c2.gif
+  ../images/menu/menu_r11_c1.gif -> img/images_menu_menu_r11_c1.gif
+  ../images/menu/menu_r12_c1.gif -> img/images_menu_menu_r12_c1.gif
+  ../images/menu/menu_r12_c2.gif -> img/images_menu_menu_r12_c2.gif
+  ../images/menu/menu_r13_c1.gif -> img/images_menu_menu_r13_c1.gif
+  ../images/menu/menu_r14_c1.gif -> img/images_menu_menu_r14_c1.gif
+  ../images/menu/menu_r14_c2.gif -> img/images_menu_menu_r14_c2.gif
+  ../images/menu/menu_r15_c1.gif -> img/images_menu_menu_r15_c1.gif
+  ../images/menu/menu_r16_c2.gif -> img/images_menu_menu_r16_c2.gif
+  ../images/menu/menu_r17_c1.gif -> img/images_menu_menu_r17_c1.gif
+  ../images/menu/menu_r18_c1.gif -> img/images_menu_menu_r18_c1.gif
+  ../images/menu/menu_r18_c2.gif -> img/images_menu_menu_r18_c2.gif
+  ../images/0602/0602a.gif -> img/images_0602_0602a.gif
+  ../images/0602/0602-10.gif -> 取得失敗: 20030820110753: HTTP 404 / 2003: HTTP 404
+  ../images/buton/return01.gif -> img/images_buton_return01.gif
+  ../images/buton/home01.gif -> img/images_buton_home01.gif
 
 ===== 0602-11.html（20030820110753（指定の版））=====
 IFSA_____International Funeral Science Association in Japan_____
- | 
- | 
- | 
- | 
  | [画像:IFSA International Funeral Science Association in Japan 日本遺体衛生保全協会]
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
  | [画像:エンバーミングとは・・・]
- | 
- | 
- | 
  | [画像:エンバーミングの歴史]
- | 
- | 
- | 
  | [画像:エンバーミングの法的解釈]
- | 
- | 
- | 
  | [画像:医療従事者の立場から]
- | 
- | 
- | 
  | [画像:エンバーミングの実際]
- | 
- | 
- | 
  | [画像:なぜエンバーミング]
- | 
- | 
- | 
  | [画像:感染症の実態]
- | 
- | 
  | [画像:IFSA組織案内]
- | 
- | 
- | 
  | [画像:お問い合わせ]
- | 
  | [画像:エンバーミングセンター案内]
- | 
 [画像:Return]
- | 
 [画像:Home]
- | 
- | 
- | 
- | 
- | 
- | 
- |
 
 --- リンク ---
   エンバーミングとは・・・ -> 04.html
@@ -897,68 +865,69 @@ IFSA_____International Funeral Science Association in Japan_____
   お問い合わせ -> ../formmail/contact.html
   Return -> 06.html
   Home -> ../index.html
+
+--- 画像地図（クリックできる領域）---
+  北海道 -> 0602-1.html
+  福島 -> 0602-2.html
+  栃木 -> 0602-3.html
+  千葉 -> 0602-4.html
+  東京 -> 0602-5.html
+  埼玉 -> 0602-6.html
+  神奈川 -> 0602-7.html
+  山梨 -> 0602-8.html
+  大阪 -> 0602-9.html
+  広島 -> 0602-10.html
+  熊本 -> 0602-11.html
+  鹿児島 -> 0602-12.html
+
+--- 画像（この版は文字が画像のことがある）---
+  ../images/others/ifsa_top.gif -> img/images_others_ifsa_top.gif
+  ../images/menu/menu_r1_c1.gif -> img/images_menu_menu_r1_c1.gif
+  ../images/menu/menu_r2_c1.gif -> img/images_menu_menu_r2_c1.gif
+  ../images/menu/04bottan.gif -> img/images_menu_04bottan.gif
+  ../images/menu/menu_r03_c1.gif -> img/images_menu_menu_r03_c1.gif
+  ../images/menu/menu_r4_c1.gif -> img/images_menu_menu_r4_c1.gif
+  ../images/menu/menu_r4_c2.gif -> img/images_menu_menu_r4_c2.gif
+  ../images/menu/menu_r05_c1.gif -> img/images_menu_menu_r05_c1.gif
+  ../images/menu/menu_r6_c1.gif -> img/images_menu_menu_r6_c1.gif
+  ../images/menu/menu_r6_c2.gif -> img/images_menu_menu_r6_c2.gif
+  ../images/menu/menu_r07_c1.gif -> img/images_menu_menu_r07_c1.gif
+  ../images/menu/menu_r8_c1.gif -> img/images_menu_menu_r8_c1.gif
+  ../images/menu/menu_r8_c2.gif -> img/images_menu_menu_r8_c2.gif
+  ../images/menu/menu_r09_c1.gif -> img/images_menu_menu_r09_c1.gif
+  ../images/menu/menu_r10_c1.gif -> img/images_menu_menu_r10_c1.gif
+  ../images/menu/menu_r10_c2.gif -> img/images_menu_menu_r10_c2.gif
+  ../images/menu/menu_r11_c1.gif -> img/images_menu_menu_r11_c1.gif
+  ../images/menu/menu_r12_c1.gif -> img/images_menu_menu_r12_c1.gif
+  ../images/menu/menu_r12_c2.gif -> img/images_menu_menu_r12_c2.gif
+  ../images/menu/menu_r13_c1.gif -> img/images_menu_menu_r13_c1.gif
+  ../images/menu/menu_r14_c1.gif -> img/images_menu_menu_r14_c1.gif
+  ../images/menu/menu_r14_c2.gif -> img/images_menu_menu_r14_c2.gif
+  ../images/menu/menu_r15_c1.gif -> img/images_menu_menu_r15_c1.gif
+  ../images/menu/menu_r16_c2.gif -> img/images_menu_menu_r16_c2.gif
+  ../images/menu/menu_r17_c1.gif -> img/images_menu_menu_r17_c1.gif
+  ../images/menu/menu_r18_c1.gif -> img/images_menu_menu_r18_c1.gif
+  ../images/menu/menu_r18_c2.gif -> img/images_menu_menu_r18_c2.gif
+  ../images/0602/0602a.gif -> img/images_0602_0602a.gif
+  ../images/0602/0602-11.gif -> img/images_0602_0602-11.gif
+  ../images/buton/return01.gif -> img/images_buton_return01.gif
+  ../images/buton/home01.gif -> img/images_buton_home01.gif
 
 ===== 0602-12.html（20030820110753（指定の版））=====
 IFSA_____International Funeral Science Association in Japan_____
- | 
- | 
- | 
- | 
  | [画像:IFSA International Funeral Science Association in Japan 日本遺体衛生保全協会]
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
- | 
  | [画像:エンバーミングとは・・・]
- | 
- | 
- | 
  | [画像:エンバーミングの歴史]
- | 
- | 
- | 
  | [画像:エンバーミングの法的解釈]
- | 
- | 
- | 
  | [画像:医療従事者の立場から]
- | 
- | 
- | 
  | [画像:エンバーミングの実際]
- | 
- | 
- | 
  | [画像:なぜエンバーミング]
- | 
- | 
- | 
  | [画像:感染症の実態]
- | 
- | 
  | [画像:IFSA組織案内]
- | 
- | 
- | 
  | [画像:お問い合わせ]
- | 
  | [画像:エンバーミングセンター案内]
- | 
 [画像:Return]
- | 
 [画像:Home]
- | 
- | 
- | 
- | 
- | 
- | 
- |
 
 --- リンク ---
   エンバーミングとは・・・ -> 04.html
@@ -972,3 +941,50 @@ IFSA_____International Funeral Science Association in Japan_____
   お問い合わせ -> ../formmail/contact.html
   Return -> 06.html
   Home -> ../index.html
+
+--- 画像地図（クリックできる領域）---
+  北海道 -> 0602-1.html
+  福島 -> 0602-2.html
+  栃木 -> 0602-3.html
+  千葉 -> 0602-4.html
+  東京 -> 0602-5.html
+  埼玉 -> 0602-6.html
+  神奈川 -> 0602-7.html
+  山梨 -> 0602-8.html
+  大阪 -> 0602-9.html
+  広島 -> 0602-10.html
+  熊本 -> 0602-11.html
+  鹿児島 -> 0602-12.html
+
+--- 画像（この版は文字が画像のことがある）---
+  ../images/others/ifsa_top.gif -> img/images_others_ifsa_top.gif
+  ../images/menu/menu_r1_c1.gif -> img/images_menu_menu_r1_c1.gif
+  ../images/menu/menu_r2_c1.gif -> img/images_menu_menu_r2_c1.gif
+  ../images/menu/04bottan.gif -> img/images_menu_04bottan.gif
+  ../images/menu/menu_r03_c1.gif -> img/images_menu_menu_r03_c1.gif
+  ../images/menu/menu_r4_c1.gif -> img/images_menu_menu_r4_c1.gif
+  ../images/menu/menu_r4_c2.gif -> img/images_menu_menu_r4_c2.gif
+  ../images/menu/menu_r05_c1.gif -> img/images_menu_menu_r05_c1.gif
+  ../images/menu/menu_r6_c1.gif -> img/images_menu_menu_r6_c1.gif
+  ../images/menu/menu_r6_c2.gif -> img/images_menu_menu_r6_c2.gif
+  ../images/menu/menu_r07_c1.gif -> img/images_menu_menu_r07_c1.gif
+  ../images/menu/menu_r8_c1.gif -> img/images_menu_menu_r8_c1.gif
+  ../images/menu/menu_r8_c2.gif -> img/images_menu_menu_r8_c2.gif
+  ../images/menu/menu_r09_c1.gif -> img/images_menu_menu_r09_c1.gif
+  ../images/menu/menu_r10_c1.gif -> img/images_menu_menu_r10_c1.gif
+  ../images/menu/menu_r10_c2.gif -> img/images_menu_menu_r10_c2.gif
+  ../images/menu/menu_r11_c1.gif -> img/images_menu_menu_r11_c1.gif
+  ../images/menu/menu_r12_c1.gif -> img/images_menu_menu_r12_c1.gif
+  ../images/menu/menu_r12_c2.gif -> img/images_menu_menu_r12_c2.gif
+  ../images/menu/menu_r13_c1.gif -> img/images_menu_menu_r13_c1.gif
+  ../images/menu/menu_r14_c1.gif -> img/images_menu_menu_r14_c1.gif
+  ../images/menu/menu_r14_c2.gif -> img/images_menu_menu_r14_c2.gif
+  ../images/menu/menu_r15_c1.gif -> img/images_menu_menu_r15_c1.gif
+  ../images/menu/menu_r16_c2.gif -> img/images_menu_menu_r16_c2.gif
+  ../images/menu/menu_r17_c1.gif -> img/images_menu_menu_r17_c1.gif
+  ../images/menu/menu_r18_c1.gif -> img/images_menu_menu_r18_c1.gif
+  ../images/menu/menu_r18_c2.gif -> img/images_menu_menu_r18_c2.gif
+  ../images/0602/0602a.gif -> img/images_0602_0602a.gif
+  ../images/0602/0602-12.gif -> img/images_0602_0602-12.gif
+  ../images/buton/return01.gif -> img/images_buton_return01.gif
+  ../images/buton/home01.gif -> img/images_buton_home01.gif
