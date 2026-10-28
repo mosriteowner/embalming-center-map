@@ -1,0 +1,45 @@
+name: wayback-2003
+
+# 手動実行専用です（自動では動きません）。
+# 2003年8月20日保存の「エンバーミングセンター案内」（地図＋12ページ）を取得して data/raw2003/ に保存します。
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wayback-2003
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt pytest
+
+      - name: テスト
+        run: python -m pytest -q tests
+
+      - name: 2003年のページを取得
+        run: python tools/wayback_2003.py
+
+      - name: 結果を保存
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/raw2003
+          if git diff --cached --quiet; then
+            echo "変更なし"
+          else
+            git commit -m "chore: IFSA 2003 center pages ($(date -u +%F))"
+            git push
+          fi
