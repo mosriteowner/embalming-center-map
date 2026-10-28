@@ -69,7 +69,7 @@ REGIONS = [
 SHOW_COMPANIES = False
 
 # 「一覧」タブの［県別］［社別］切り替え（社別＝事業者の五十音順の一覧）。Trueにすると、切り替えボタンが出る。
-SHOW_COMPANY_LIST = False
+SHOW_COMPANY_LIST = True
 
 OKINAWA_SHIFT = (-3.0, 5.8)   # 全国図で沖縄を九州の西の海上に移す(経度, 緯度)
 SCALE = 55.0                  # 全国図: px / 緯度1度
